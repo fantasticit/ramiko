@@ -1,19 +1,20 @@
 .unioEditorWrapper {
   > div {
-    color: rgba(0, 0, 0, 0.65);
+    color: var(--editor-text-color-second);
   }
 
   > ul {
-    margin: 8px 0;
+    margin: var(--editor-padding-vertical-small);
 
     > li {
       position: relative;
-      padding: 12px;
-      border: 1px dashed #eee;
+      padding: var(--editor-padding-horizontal-medium)
+        var(--editor-padding-vertical-medium);
+      border: 1px dashed var(--editor-border-color);
       cursor: pointer;
 
       + li {
-        margin-top: 12px;
+        margin-top: var(--editor-padding-horizontal-medium);
       }
 
       &::before {
@@ -29,7 +30,7 @@
         top: 0;
         right: 0;
         display: flex;
-        font-size: 14px;
+        font-size: var(--editor-text-font-size-desc);
         visibility: hidden;
 
         > div {
@@ -55,13 +56,14 @@
   flex-direction: column;
 
   > h3 {
-    font-size: 16px;
-    padding: 16px 12px;
-    margin: 0;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: var(--editor-text-color-primary);
+    font-size: var(--editor-text-font-size-title);
+    padding: var(--editor-padding-vertical)
+      var(--editor-padding-horizontal-medium);
+    margin: 0;
 
     > span:last-of-type {
       cursor: pointer;
@@ -80,7 +82,7 @@
       overflow-x: hidden;
 
       > li + li {
-        margin-top: 16px;
+        margin-top: var(--editor-padding-vertical);
       }
     }
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { ThemeToggle } from './ThemeToggle';
 import style from './index.module.scss';
 
 interface IProps {
@@ -10,9 +11,10 @@ interface IProps {
 
 export const Header: React.FC<IProps> = ({ loading, onPreview, onSave }) => {
   return (
-    <div className={style.wrapper}>
+    <header className={style.wrapper}>
       <div className={style.logo}>Ramiko</div>
       <div>
+        <ThemeToggle />
         <Button type="text" onClick={onPreview}>
           预览
         </Button>
@@ -20,6 +22,6 @@ export const Header: React.FC<IProps> = ({ loading, onPreview, onSave }) => {
           保存
         </Button>
       </div>
-    </div>
+    </header>
   );
 };

@@ -1,17 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import cls from 'classnames';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, RightOutlined } from '@ant-design/icons';
 import plugins from 'plugins';
 import style from './index.module.scss';
 
 const groups = plugins.components.getGroups();
 
 interface IProps {
-  onSelect: (arg: any) => void;
+  visible: boolean;
+  onOpen: () => void;
   onClose: () => void;
+  onSelect: (arg: any) => void;
 }
 
-export const Pannel: React.FC<IProps> = ({ onSelect, onClose }) => {
+export const Pannel: React.FC<IProps> = ({
+  visible,
+  onSelect,
+  onOpen,
+  onClose
+}) => {
   const [group, setGroup] = useState(groups[0]);
 
   const components = useMemo(() => {
@@ -66,6 +73,15 @@ export const Pannel: React.FC<IProps> = ({ onSelect, onClose }) => {
           </ul>
         </div>
       </main>
+      <div
+        className={cls(
+          style.openBtnWrapper,
+          !visible ? style.isVisible : false
+        )}
+        onClick={onOpen}
+      >
+        <RightOutlined />
+      </div>
     </div>
   );
 };

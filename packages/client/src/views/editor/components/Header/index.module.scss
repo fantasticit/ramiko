@@ -1,12 +1,17 @@
 .wrapper {
+  position: relative;
+  z-index: 130;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 60px;
-  padding: 0 16px;
+  background-color: var(--editor-pannel-bgcolor);
+  box-shadow: var(--editor-header-box-shadow);
+  padding: var(--editor-padding-horizontal);
+  color: var(--editor-text-color-primary);
 
   .logo {
-    color: rgba(0, 0, 0, 0.85);
+    color: var(--editor-text-color-primary);
     font-size: 18px;
     font-weight: 700;
     font-style: italic;

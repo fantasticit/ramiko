@@ -1,19 +1,18 @@
 .wrapper {
-  font-size: 14px;
-
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
+  font-size: var(--editor-text-font-size-desc);
 
   > span {
-    color: rgba(0, 0, 0, 0.65);
+    color: var(--editor-text-color-second);
     white-space: nowrap;
   }
 
   > div {
     flex: 1;
     white-space: nowrap;
-    margin-left: 16px;
+    margin-left: var(--editor-padding-horizontal-medium);
     overflow-x: auto;
     overflow-y: hidden;
     text-align: right;

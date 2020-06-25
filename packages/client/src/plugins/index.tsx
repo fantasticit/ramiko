@@ -23,6 +23,7 @@ components.addToGroup('TAB', ['ImgTextTab']);
 components.addToGroup('配图', ['Cover']);
 components.addToGroup('轮播图', ['Carousel']);
 components.addToGroup('段落', ['Paragraph']);
+components.addToGroup('按钮', ['Button']);
 components.addToGroup('页脚', ['Footer']);
 
 export default {
