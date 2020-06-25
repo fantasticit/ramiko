@@ -1,0 +1,79 @@
+.wrapper {
+  min-width: 1200px;
+  height: 100vh;
+  background-color: #f5f5f7;
+
+  > header {
+    position: relative;
+    z-index: 10;
+    background-color: #fff;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.06);
+  }
+
+  > main {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: calc(100% - 60px);
+    box-sizing: border-box;
+    background: #f5f5f7;
+    overflow: hidden;
+
+    .pannelWrapper,
+    .propsEditorWrapper {
+      width: 360px;
+      height: 100%;
+      background-color: #fff;
+    }
+
+    @media (min-width: 1440px) {
+      .pannelWrapper,
+      .propsEditorWrapper {
+        width: 480px;
+      }
+    }
+
+    .pannelWrapper {
+      position: relative;
+      box-shadow: 3px 0 16px rgba(0, 0, 0, 0.06);
+      transform: translateX(-100%);
+      transition: all ease-in-out 0.3s;
+
+      &.isVisible {
+        transform: translateX(0);
+      }
+
+      .componentPannelBtnWrapper {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        z-index: 110;
+        padding: 4px 8px;
+        background: #fff;
+        transform: translate(100%, -50%);
+        cursor: pointer;
+        opacity: 0;
+        transition: all ease-in-out 0.3s;
+        transition-delay: 0.2s;
+
+        &.isVisible {
+          opacity: 1;
+        }
+      }
+    }
+
+    .propsEditorWrapper {
+      transform: translateX(100%);
+      transition: all ease-in-out 0.3s;
+      box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.06);
+
+      &.isVisible {
+        transform: translateX(0);
+      }
+    }
+
+    .previewWrapper {
+      flex: 1;
+    }
+  }
+}

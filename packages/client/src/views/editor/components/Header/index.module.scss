@@ -1,0 +1,34 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 16px;
+
+  .logo {
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 18px;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  ul {
+    display: inline-flex;
+    margin: 0;
+
+    li {
+      font-size: 1.6em;
+      cursor: pointer;
+
+      + li {
+        margin-left: 0.5em;
+      }
+    }
+  }
+
+  div {
+    button + button {
+      margin-left: 8px;
+    }
+  }
+}

@@ -1,0 +1,87 @@
+.unioEditorWrapper {
+  > div {
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  > ul {
+    margin: 8px 0;
+
+    > li {
+      position: relative;
+      padding: 12px;
+      border: 1px dashed #eee;
+      cursor: pointer;
+
+      + li {
+        margin-top: 12px;
+      }
+
+      &::before {
+        content: attr(data-index);
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+      }
+
+      .toolboxWrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        font-size: 14px;
+        visibility: hidden;
+
+        > div {
+          padding: 4px;
+        }
+      }
+
+      &:hover {
+        &::before {
+          opacity: 1;
+        }
+        .toolboxWrapper {
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  > h3 {
+    font-size: 16px;
+    padding: 16px 12px;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > span:last-of-type {
+      cursor: pointer;
+    }
+  }
+
+  main {
+    flex: 1;
+    padding: 0px 12px;
+    overflow: auto;
+
+    > ul {
+      margin: 0;
+      flex: 1;
+      overflow: auto;
+      overflow-x: hidden;
+
+      > li + li {
+        margin-top: 16px;
+      }
+    }
+  }
+}

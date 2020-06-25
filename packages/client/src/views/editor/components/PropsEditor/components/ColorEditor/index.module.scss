@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  font-size: 14px;
+
+  > span {
+    color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+  }
+
+  > div > div {
+    padding: 4px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+
+    .block {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+  }
+}
+
+:global {
+  .ant-popover-inner-content {
+    padding: 0 !important;
+  }
+}

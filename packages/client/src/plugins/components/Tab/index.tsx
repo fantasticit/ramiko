@@ -1,0 +1,1 @@
+export { ImgTextTab } from './ImgTextTab';

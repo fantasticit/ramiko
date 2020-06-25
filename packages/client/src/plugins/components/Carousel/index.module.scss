@@ -1,0 +1,21 @@
+.wrapper {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+
+  &.isFull {
+    padding: 0;
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+}

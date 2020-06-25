@@ -1,0 +1,38 @@
+.wrapper {
+  font-size: 14px;
+
+  > p {
+    color: rgba(0, 0, 0, 0.65);
+    margin-bottom: 8px;
+
+    > span {
+      font-size: 0.8em;
+      margin-left: 8px;
+      color: rgba(0, 0, 0, 0.45);
+    }
+  }
+
+  .imgWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+
+    img {
+      width: 64px;
+    }
+
+    span {
+      display: inline-block;
+      flex: 1;
+      margin-left: 8px;
+      font-size: 0.8em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

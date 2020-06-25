@@ -1,0 +1,35 @@
+{
+  "name": "@ramiko/client",
+  "version": "0.1.0",
+  "private": true,
+  "author": "fantasticit <zhxuc7@163.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p 3002",
+    "pm2": "pm2 start npm --name ramiko-client -- start"
+  },
+  "dependencies": {
+    "antd": "^4.3.5",
+    "axios": "^0.19.2",
+    "classnames": "^2.2.6",
+    "lodash": "^4.17.15",
+    "next": "9.4.4",
+    "react": "16.13.1",
+    "react-color": "^2.18.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.41",
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-sass": "^1.0.1",
+    "babel-plugin-import": "^1.13.0",
+    "less-loader": "^6.1.2",
+    "next-compose-plugins": "^2.2.0",
+    "node-sass": "^4.14.1",
+    "null-loader": "^4.0.0",
+    "sass": "^1.26.9",
+    "tsconfig-paths-webpack-plugin": "^3.2.0"
+  }
+}

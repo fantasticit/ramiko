@@ -1,0 +1,22 @@
+.wrapper {
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  padding: 8px;
+}
+
+.isLeftBorder {
+  position: relative;
+
+  > span:first-of-type {
+    display: inline-block;
+    width: 6px;
+    height: 1em;
+    vertical-align: middle;
+    border-radius: 2px 0 0 2px;
+    margin-right: 8px;
+    transform: translateY(-2px);
+  }
+}

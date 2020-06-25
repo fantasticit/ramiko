@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces run build",
+    "pm2": "yarn workspaces run pm2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --config lint-staged.config.js"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.2.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11"
+  },
+  "engines": {
+    "node": ">=10.13.0"
+  }
+}

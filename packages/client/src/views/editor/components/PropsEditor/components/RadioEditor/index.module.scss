@@ -1,0 +1,21 @@
+.wrapper {
+  font-size: 14px;
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+
+  > span {
+    color: rgba(0, 0, 0, 0.65);
+    white-space: nowrap;
+  }
+
+  > div {
+    flex: 1;
+    white-space: nowrap;
+    margin-left: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: right;
+  }
+}
