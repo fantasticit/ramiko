@@ -95,7 +95,11 @@ export const Editor: React.FC<IProps> = ({
         name: component.name,
         props: component.props,
         schema: component.schema,
-        fns: component.fns
+        fns: component.fns.map(fn => ({
+          name: fn.name,
+          props: fn.props,
+          schema: fn.schema
+        }))
       };
     });
     PageProvider.addPage({ name: Math.random(), content: data }).then(

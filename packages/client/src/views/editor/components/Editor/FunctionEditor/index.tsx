@@ -46,6 +46,7 @@ export const FunctionEditor: React.FC<IProps> = ({
       fns.map(fn => ({
         group: fn.group,
         name: fn.originName,
+        originName: fn.originName,
         props: fn.props,
         schema: fn.schema
       }))

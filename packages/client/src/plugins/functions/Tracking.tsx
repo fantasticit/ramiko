@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Tracking = ({ op, pageSn, pageElSn, children }) => {
   const onClick = () => {
-    console.log('埋点测试', op, pageSn, pageElSn);
+    alert('埋点测试：' + op + '_' + pageSn + '_' + pageElSn);
   };
 
   return <div onClick={onClick}>{children}</div>;
