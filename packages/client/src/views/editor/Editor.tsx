@@ -49,6 +49,9 @@ export const Editor: React.FC<IProps> = ({
       target.props = target.defaultProps;
       target.fns = [];
       components.splice(index + 1, 0, target);
+      components.forEach((component, index) => {
+        component.id = index;
+      });
       return components;
     });
     unsafeUpdate();
@@ -101,12 +104,14 @@ export const Editor: React.FC<IProps> = ({
   };
 
   // 交换两组件位置（拖拽）
-  const swapComponent = (index1, index2) => {
+  const swapComponent = (dragIndex, hoverIndex) => {
     setComponents(components => {
-      let a = components[index1];
-      let b = components[index2];
-      components.splice(index1, 1, b);
-      components.splice(index2, 1, a);
+      let a = components[dragIndex];
+      let b = components[hoverIndex];
+      b.id = dragIndex;
+      a.id = hoverIndex;
+      components.splice(dragIndex, 1, b);
+      components.splice(hoverIndex, 1, a);
       return components;
     });
     unsafeUpdate();
@@ -156,6 +161,7 @@ export const Editor: React.FC<IProps> = ({
     setLoading(true);
     const data = components.map((component: any) => {
       return {
+        id: component.id,
         name: component.name,
         props: component.props,
         schema: component.schema,

@@ -119,6 +119,18 @@ export const Preview: React.FC<IProps> = ({
     }, 0);
   };
 
+  const handleSwap = (dragIndex, hoverIndex) => {
+    onSwap(dragIndex, hoverIndex);
+    setCurrentIndex(hoverIndex);
+    setTimeout(() => {
+      const el = document.querySelector(
+        `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + hoverIndex}`
+      );
+      calcToolboxAndHoverBgAttrs(el);
+    }, 0);
+  };
+
+  // TODO:插入组件，不应当是直接使用当前组件，考虑占位，然后进行组件选择
   const handleInsertBefore = () => {
     if (currentIndex > -1) {
       const newIndex = insertBefore(currentIndex);
@@ -203,7 +215,7 @@ export const Preview: React.FC<IProps> = ({
                       setCurrentIndex(index);
                       onEdit(index);
                     }}
-                    onDrop={onSwap}
+                    onDrop={handleSwap}
                     onInsertBefore={handleInsertBefore}
                     onInsertAfter={handleInsertAfter}
                   />
