@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Tabs } from 'antd';
 import style from './index.module.scss';
 
-export const ImgTextTab = ({ tabs, defaultActive }) => {
+export const ImgTextTab = ({ tabs, defaultActive, tabPosition }) => {
   const [activeKey, setActiveKey] = useState(defaultActive);
 
   useEffect(() => {
@@ -11,7 +11,11 @@ export const ImgTextTab = ({ tabs, defaultActive }) => {
 
   return (
     <div className={style.wrapper}>
-      <Tabs activeKey={activeKey} onChange={setActiveKey}>
+      <Tabs
+        tabPosition={tabPosition}
+        activeKey={activeKey}
+        onChange={setActiveKey}
+      >
         {tabs.map((tab, i) => {
           return (
             <Tabs.TabPane tab={tab.name} key={tab.name}>
@@ -37,6 +41,7 @@ export const ImgTextTab = ({ tabs, defaultActive }) => {
 
 ImgTextTab.defaultProps = {
   defaultActive: '标签一',
+  tabPosition: 'top',
   tabs: [
     {
       name: '标签一',
@@ -80,10 +85,15 @@ ImgTextTab.defaultProps = {
     label: '默认选中',
     type: 'text'
   },
+  tabPosition: {
+    label: '页签位置',
+    type: 'radio',
+    options: ['top', 'bottom', 'left', 'right']
+  },
   tabs: {
     type: 'children',
     min: 2,
-    label: '轮播组',
+    label: '标签',
     schema: {
       name: {
         label: '标题',
@@ -91,8 +101,8 @@ ImgTextTab.defaultProps = {
       },
       items: {
         type: 'children',
-        min: 2,
-        label: '轮播组',
+        min: 1,
+        label: '图文',
         schema: {
           cover: {
             label: '图片链接',
