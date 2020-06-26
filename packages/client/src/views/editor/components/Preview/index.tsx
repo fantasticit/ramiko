@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 import cls from 'classnames';
 import { Divider } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
@@ -61,12 +61,16 @@ export const Preview: React.FC<IProps> = ({
     }
   }, []);
 
-  const handleMove = throttle(e => {
-    const el = e.target;
-    if (el && toolboxRef.current && hoverBgRef.current) {
-      calcToolboxAndHoverBgAttrs(el);
-    }
-  }, 100);
+  const handleMove = debounce(
+    e => {
+      const el = e.target;
+      if (el && toolboxRef.current && hoverBgRef.current) {
+        calcToolboxAndHoverBgAttrs(el);
+      }
+    },
+    100,
+    { leading: true, traling: false }
+  );
 
   const moveComponent = direction => {
     let newComponent;

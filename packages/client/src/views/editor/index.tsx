@@ -155,58 +155,6 @@ export const Editor = () => {
             onClose={() => setPropsEditorVisible(false)}
           />
         </div>
-
-        {/* <section
-          className={cls(
-            style.pannelWrapper,
-            componentPannelVisible ? style.isVisible : false
-          )}
-        >
-          <Pannel
-            onSelect={component => {
-              addComponent(component);
-              setComponentPannelVisible(true);
-            }}
-            onClose={() => setComponentPannelVisible(false)}
-          />
-          <div
-            className={cls(
-              style.componentPannelBtnWrapper,
-              !componentPannelVisible ? style.isVisible : false
-            )}
-            onClick={() => setComponentPannelVisible(true)}
-          >
-            <RightOutlined />
-          </div>
-        </section>
-        <section className={style.previewWrapper}>
-          <Preview
-            mode={mode}
-            onClosePreview={() => setMode('edit')}
-            components={components}
-            onEdit={(component, index) => {
-              setCurrent(component);
-              setCurrentIndex(index);
-              setPropsEditorVisible(true);
-            }}
-            onMove={moveComponent}
-            onDelete={deleteComponent}
-          />
-        </section>
-        <section
-          className={cls(
-            style.propsEditorWrapper,
-            Object.keys(current).length && propsEditorVisible
-              ? style.isVisible
-              : false
-          )}
-        >
-          <PropsEditor
-            component={current}
-            onChange={editComponent}
-            onClose={() => setPropsEditorVisible(false)}
-          />
-        </section> */}
       </main>
     </div>
   );
