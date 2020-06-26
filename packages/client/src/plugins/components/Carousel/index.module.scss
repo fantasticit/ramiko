@@ -1,21 +1,22 @@
 .wrapper {
   display: block;
   width: 100%;
+  padding: 8px;
   overflow: hidden;
 
   &.isFull {
     padding: 0;
   }
 
-  a {
-    display: block;
+  img {
     width: 100%;
-    text-decoration: none;
+    height: auto;
+    max-height: 100%;
+  }
 
-    img {
-      width: 100%;
-      height: auto;
-      max-height: 100%;
+  :global {
+    .ant-carousel .slick-initialized .slick-slide {
+      font-size: 0;
     }
   }
 }
