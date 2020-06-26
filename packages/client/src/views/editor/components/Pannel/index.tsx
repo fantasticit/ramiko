@@ -60,6 +60,7 @@ export const Pannel: React.FC<IProps> = ({
                           name: Component.originName,
                           schema: Component.schema,
                           props: Component.defaultProps,
+                          defaultProps: Component.defaultProps,
                           fns: []
                         });
                       }}

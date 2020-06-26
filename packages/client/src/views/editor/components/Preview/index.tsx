@@ -1,14 +1,18 @@
 import React, { useState, useRef, useCallback } from 'react';
 import debounce from 'lodash/debounce';
 import cls from 'classnames';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Divider } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import {
   ArrowUpOutlined,
   ArrowDownOutlined,
-  DeleteOutlined
+  DeleteOutlined,
+  CopyOutlined
 } from '@ant-design/icons';
 import { Mode, IComponent } from '../../type';
+import { DndCover } from './DndCover';
 import { renderComponent } from './renderComponent';
 import style from './index.module.scss';
 
@@ -21,8 +25,12 @@ interface IProps {
     index: number,
     direction: 'up' | 'down'
   ) => [IComponent, number];
-  onEdit: (component: IComponent, index: number) => void;
-  onDelete: (component: IComponent, index: number) => void;
+  onSwap: (index1, index2) => void;
+  onEdit: (index: number) => void;
+  onCopy: (index: number) => void;
+  onDelete: (index: number) => void;
+  insertBefore: (index: number) => number;
+  insertAfter: (index: number) => number;
 }
 
 const COMPONENT_COVER_WRAPPER_ID_PREFIX = 'ramiko_component_cover_wrapper_';
@@ -32,8 +40,12 @@ export const Preview: React.FC<IProps> = ({
   mode = 'edit',
   onClosePreview,
   onMove,
+  onSwap,
   onEdit,
-  onDelete
+  onCopy,
+  onDelete,
+  insertBefore,
+  insertAfter
 }) => {
   const isEdit = mode === 'edit';
   const toolboxRef = useRef(null);
@@ -42,6 +54,9 @@ export const Preview: React.FC<IProps> = ({
   const [currentIndex, setCurrentIndex] = useState(-1);
 
   const calcToolboxAndHoverBgAttrs = useCallback(el => {
+    if (!el) {
+      return;
+    }
     // FIXME: 遇到图片时可能需要等待图片加载完成，才可计算出正确高度
     const handle = () => {
       const { y, height } = el.getBoundingClientRect();
@@ -50,7 +65,7 @@ export const Preview: React.FC<IProps> = ({
       hoverBgRef.current.style.height = height + 'px';
     };
 
-    const img = el.parentNode.querySelector('img');
+    const img = (el.parentNode && el.parentNode.querySelector('img')) || null;
 
     if (img) {
       const imgIns = new Image();
@@ -69,7 +84,7 @@ export const Preview: React.FC<IProps> = ({
         calcToolboxAndHoverBgAttrs(el);
       }
     },
-    100,
+    50,
     { leading: true, traling: false }
   );
 
@@ -104,87 +119,129 @@ export const Preview: React.FC<IProps> = ({
     }, 0);
   };
 
+  const handleInsertBefore = () => {
+    if (currentIndex > -1) {
+      const newIndex = insertBefore(currentIndex);
+      setCurrentIndex(newIndex);
+      setTimeout(() => {
+        const el = document.querySelector(
+          `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + newIndex}`
+        );
+        calcToolboxAndHoverBgAttrs(el);
+      }, 0);
+    }
+  };
+
+  const handleInsertAfter = () => {
+    if (currentIndex > -1) {
+      const newIndex = insertAfter(currentIndex);
+      setCurrentIndex(newIndex);
+      setTimeout(() => {
+        const el = document.querySelector(
+          `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + newIndex}`
+        );
+        calcToolboxAndHoverBgAttrs(el);
+      }, 0);
+    }
+  };
+
+  const copy = () => {
+    if (currentIndex > -1) {
+      onCopy(currentIndex);
+    }
+  };
+
   const deleteComponent = () => {
     if (!current || currentIndex < 0) {
       return;
     }
-    onDelete(current, currentIndex);
+    onDelete(currentIndex);
     setCurrentIndex(-1);
-    setCurrent({});
+    setCurrent(null);
   };
 
   return (
-    <div className={cls(style.wrapper, isEdit ? false : style.isPreview)}>
-      <div
-        className={cls(
-          style.closePreviewWrapper,
-          isEdit ? false : style.isPreview
-        )}
-        onClick={onClosePreview}
-      >
-        <CloseOutlined />
-      </div>
-      <div
-        className={cls(style.contentWrapper, isEdit ? false : style.isPreview)}
-      >
-        {components.map((component, index) => {
-          return (
-            <div
-              className={cls(
-                style.componentWrapper,
-                currentIndex === index && isEdit ? style.isHover : false
-              )}
-              key={index}
-            >
-              {isEdit ? (
-                <div
-                  className={style.componentCoverWrapper}
-                  id={COMPONENT_COVER_WRAPPER_ID_PREFIX + index} // 唯一 id 用于 dom 查询
-                  onMouseMove={e => {
-                    e.persist();
-                    setCurrent(component);
-                    setCurrentIndex(index);
-                    handleMove(e);
-                  }}
-                  onClick={e => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    setCurrent(component);
-                    setCurrentIndex(index);
-                    onEdit(component, index);
-                  }}
-                ></div>
-              ) : null}
-              <div className={style.componentInstanceWrapper}>
-                {renderComponent({ component, isEdit })}
+    <DndProvider backend={HTML5Backend}>
+      <div className={cls(style.wrapper, isEdit ? false : style.isPreview)}>
+        <div
+          className={cls(
+            style.closePreviewWrapper,
+            isEdit ? false : style.isPreview
+          )}
+          onClick={onClosePreview}
+        >
+          <CloseOutlined />
+        </div>
+        <div
+          className={cls(
+            style.contentWrapper,
+            isEdit ? false : style.isPreview
+          )}
+        >
+          {components.map((component, index) => {
+            return (
+              <div
+                className={cls(
+                  style.componentWrapper,
+                  currentIndex === index && isEdit ? style.isHover : false
+                )}
+                key={index}
+              >
+                {isEdit ? (
+                  <DndCover
+                    domId={COMPONENT_COVER_WRAPPER_ID_PREFIX + index}
+                    id={index}
+                    index={index}
+                    onMouseMove={e => {
+                      e.persist();
+                      setCurrent(component);
+                      setCurrentIndex(index);
+                      handleMove(e);
+                    }}
+                    onClick={() => {
+                      setCurrent(component);
+                      setCurrentIndex(index);
+                      onEdit(index);
+                    }}
+                    onDrop={onSwap}
+                    onInsertBefore={handleInsertBefore}
+                    onInsertAfter={handleInsertAfter}
+                  />
+                ) : null}
+                <div className={style.componentInstanceWrapper}>
+                  {renderComponent({ component, isEdit })}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <div
+          className={style.hoverBgWrapper}
+          ref={hoverBgRef}
+          style={{ visibility: isEdit ? 'visible' : 'hidden' }}
+        ></div>
+        <div
+          className={style.toolboxWrapper}
+          ref={toolboxRef}
+          style={{
+            visibility: currentIndex > -1 && isEdit ? 'visible' : 'hidden'
+          }}
+        >
+          <ul>
+            <li>
+              <ArrowUpOutlined onClick={() => moveComponent('up')} />
+              <Divider className={style.dividerWrapper} />
+              <ArrowDownOutlined onClick={() => moveComponent('down')} />
+            </li>
+            <li>
+              <CopyOutlined onClick={copy} />
+            </li>
+            <li>
+              <DeleteOutlined onClick={deleteComponent} />
+            </li>
+          </ul>
+        </div>
       </div>
-      <div
-        className={style.hoverBgWrapper}
-        ref={hoverBgRef}
-        style={{ visibility: isEdit ? 'visible' : 'hidden' }}
-      ></div>
-      <div
-        className={style.toolboxWrapper}
-        ref={toolboxRef}
-        style={{
-          visibility: currentIndex > -1 && isEdit ? 'visible' : 'hidden'
-        }}
-      >
-        <ul>
-          <li>
-            <ArrowUpOutlined onClick={() => moveComponent('up')} />
-            <Divider className={style.dividerWrapper} />
-            <ArrowDownOutlined onClick={() => moveComponent('down')} />
-          </li>
-          <li>
-            <DeleteOutlined onClick={deleteComponent} />
-          </li>
-        </ul>
-      </div>
-    </div>
+    </DndProvider>
   );
 };
