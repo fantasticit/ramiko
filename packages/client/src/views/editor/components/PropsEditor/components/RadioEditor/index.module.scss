@@ -2,10 +2,11 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
-  font-size: var(--editor-text-font-size-desc);
+  font-size: var(--editor-text-font-size-helper);
+  padding: var(--editor-padding-vertical-medium) 0;
 
   > span {
-    color: var(--editor-text-color-second);
+    color: var(--editor-text-color-primary);
     white-space: nowrap;
   }
 

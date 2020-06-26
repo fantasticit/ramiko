@@ -1,9 +1,10 @@
 .wrapper {
-  font-size: var(--editor-text-font-size-desc);
+  font-size: var(--editor-text-font-size-helper);
 
   > p {
-    color: var(--editor-text-color-second);
-    margin-bottom: 8px;
+    color: var(--editor-text-color-primary);
+    margin: 0;
+    padding: var(--editor-padding-vertical-medium) 0;
 
     > span {
       margin-left: 8px;

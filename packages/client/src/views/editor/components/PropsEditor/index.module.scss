@@ -1,51 +1,58 @@
 .unioEditorWrapper {
-  > div {
-    color: var(--editor-text-color-second);
+  > div.title {
+    font-size: var(--editor-text-font-size-helper);
+    color: var(--editor-text-color-primary);
+    padding: var(--editor-padding-vertical-medium) 0;
   }
 
-  > ul {
-    margin: var(--editor-padding-vertical-small);
+  :global {
+    .ant-collapse-borderless {
+      background-color: transparent;
+    }
 
-    > li {
-      position: relative;
-      padding: var(--editor-padding-horizontal-medium)
-        var(--editor-padding-vertical-medium);
-      border: 1px dashed var(--editor-border-color);
-      cursor: pointer;
+    .ant-collapse-item-active {
+      background-color: var(--editor-main-bgcolor);
+    }
 
-      + li {
-        margin-top: var(--editor-padding-horizontal-medium);
+    .ant-collapse-borderless > .ant-collapse-item {
+      border-color: var(--editor-border-color);
+    }
+
+    .ant-collapse-header {
+      display: flex;
+      align-items: center;
+      background-color: var(--editor-pannel-bgcolor);
+
+      span.anticon {
+        color: var(--editor-text-color-thirty) !important;
       }
+    }
 
-      &::before {
-        content: attr(data-index);
-        display: inline-block;
-        position: absolute;
-        left: 0;
-        opacity: 0;
-      }
+    .ant-collapse-item-active .ant-collapse-header {
+      background-color: transparent;
+    }
+  }
 
-      .toolboxWrapper {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: flex;
-        font-size: var(--editor-text-font-size-desc);
-        visibility: hidden;
+  span.pannellHeader {
+    flex: 1;
+    display: inline-block;
+    color: var(--editor-text-color-second);
+    margin: 0;
+    padding-right: var(--editor-padding-horizontal-small);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 
-        > div {
-          padding: 4px;
-        }
-      }
+  a.more {
+    display: block;
+    background-color: transparent;
+    font-size: var(--editor-text-font-size-helper);
+    padding-top: var(--editor-padding-vertical-medium);
+    padding-left: 12px;
 
-      &:hover {
-        &::before {
-          opacity: 1;
-        }
-        .toolboxWrapper {
-          visibility: visible;
-        }
-      }
+    > span:first-of-type {
+      margin-right: 8px;
     }
   }
 }
@@ -80,10 +87,6 @@
       flex: 1;
       overflow: auto;
       overflow-x: hidden;
-
-      > li + li {
-        margin-top: var(--editor-padding-vertical);
-      }
     }
   }
 }

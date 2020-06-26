@@ -1,9 +1,10 @@
 .wrapper {
-  font-size: var(--editor-text-font-size-desc);
+  font-size: var(--editor-text-font-size-helper);
 
   > p {
-    color: var(--editor-text-color-second);
-    margin-bottom: 8px;
+    color: var(--editor-text-color-primary);
+    margin: 0;
+    padding: var(--editor-padding-vertical-medium) 0;
 
     > span {
       font-size: 0.8em;
@@ -18,6 +19,7 @@
     align-items: center;
     padding: 8px;
     border-radius: 3px;
+    background-color: #fff;
     border: 1px solid var(--editor-border-color);
     margin-bottom: var(--editor-padding-vertical-small);
 

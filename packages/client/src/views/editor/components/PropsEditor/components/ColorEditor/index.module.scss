@@ -2,12 +2,13 @@
   display: flex;
   justify-content: space-between;
   align-content: center;
-  font-size: var(--editor-text-font-size-desc);
+  font-size: var(--editor-text-font-size-helper);
+  padding: var(--editor-padding-vertical-medium) 0;
 
   > span {
     display: flex;
     align-items: center;
-    color: var(--editor-text-color-second);
+    color: var(--editor-text-color-primary);
   }
 
   > div > div {
