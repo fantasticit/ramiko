@@ -24,6 +24,13 @@
       }
     }
 
+    .ant-btn-link {
+      font-size: var(--editor-text-font-size-helper);
+      span {
+        color: inherit;
+      }
+    }
+
     .ant-radio-wrapper {
       color: var(--editor-text-color-second);
     }
