@@ -6,5 +6,7 @@
 
   > span {
     color: var(--editor-text-color-primary);
+    display: flex;
+    align-items: center;
   }
 }

@@ -1,23 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { NextPage } from 'next';
 import { PageProvider } from 'api/page';
-import plugins from 'plugins';
+import { renderPage } from 'views/editor';
 import style from './index.module.scss';
 
 const Page: NextPage<any> = ({ page }) => {
-  const components = (page.content || []).map(({ name, props }) => {
-    return {
-      component: plugins.components.get(name),
-      props
-    };
-  });
+  const components = page.content || [];
 
   return (
     <div className={style.wrapper}>
-      {components.map((component, index) => {
-        const { component: Component, props } = component;
-        return <Component key={index} {...props} />;
-      })}
+      {renderPage({ components: page.content })}
     </div>
   );
 };

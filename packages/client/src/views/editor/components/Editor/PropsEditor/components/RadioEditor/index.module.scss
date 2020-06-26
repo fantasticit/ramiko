@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  font-size: var(--editor-text-font-size-helper);
+  padding: var(--editor-padding-vertical-medium) 0;
+
+  > span {
+    color: var(--editor-text-color-primary);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+
+  > div {
+    flex: 1;
+    white-space: nowrap;
+    margin-left: var(--editor-padding-horizontal-medium);
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: right;
+  }
+}

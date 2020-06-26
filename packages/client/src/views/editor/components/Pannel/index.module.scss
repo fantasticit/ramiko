@@ -29,6 +29,7 @@
       > ul {
         margin: 0;
         padding: 0 var(--editor-padding-vertical-medium);
+        font-size: var(--editor-text-font-size-desc);
 
         > li {
           cursor: pointer;

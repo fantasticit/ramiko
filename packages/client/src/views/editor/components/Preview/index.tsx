@@ -8,20 +8,21 @@ import {
   ArrowDownOutlined,
   DeleteOutlined
 } from '@ant-design/icons';
+import { Mode, IComponent } from '../../type';
+import { renderComponent } from './renderComponent';
 import style from './index.module.scss';
-import plugins from '@/plugins';
 
 interface IProps {
-  components: Array<any>;
-  mode: 'edit' | 'preview';
+  components: Array<IComponent>;
+  mode: Mode;
   onClosePreview: () => void;
   onMove: (
     component: any,
     index: number,
     direction: 'up' | 'down'
-  ) => [any, number];
-  onEdit: (component: any, index: number) => void;
-  onDelete: (component: any, index: number) => void;
+  ) => [IComponent, number];
+  onEdit: (component: IComponent, index: number) => void;
+  onDelete: (component: IComponent, index: number) => void;
 }
 
 const COMPONENT_COVER_WRAPPER_ID_PREFIX = 'ramiko_component_cover_wrapper_';
@@ -37,7 +38,7 @@ export const Preview: React.FC<IProps> = ({
   const isEdit = mode === 'edit';
   const toolboxRef = useRef(null);
   const hoverBgRef = useRef(null);
-  const [current, setCurrent] = useState({});
+  const [current, setCurrent] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
   const calcToolboxAndHoverBgAttrs = useCallback(el => {
@@ -127,8 +128,6 @@ export const Preview: React.FC<IProps> = ({
         className={cls(style.contentWrapper, isEdit ? false : style.isPreview)}
       >
         {components.map((component, index) => {
-          const { name, schema, props } = component;
-          const Component = plugins.components.get(name);
           return (
             <div
               className={cls(
@@ -157,13 +156,17 @@ export const Preview: React.FC<IProps> = ({
                 ></div>
               ) : null}
               <div className={style.componentInstanceWrapper}>
-                <Component {...props} />
+                {renderComponent({ component, isEdit })}
               </div>
             </div>
           );
         })}
       </div>
-      <div className={style.hoverBgWrapper} ref={hoverBgRef}></div>
+      <div
+        className={style.hoverBgWrapper}
+        ref={hoverBgRef}
+        style={{ visibility: isEdit ? 'visible' : 'hidden' }}
+      ></div>
       <div
         className={style.toolboxWrapper}
         ref={toolboxRef}

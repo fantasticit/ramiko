@@ -1,16 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import cls from 'classnames';
 import { CloseOutlined, RightOutlined } from '@ant-design/icons';
-import plugins from 'plugins';
+import { IComponent } from '../../type';
+import { plugins } from '../../plugins';
 import style from './index.module.scss';
-
-const groups = plugins.components.getGroups();
 
 interface IProps {
   visible: boolean;
   onOpen: () => void;
   onClose: () => void;
-  onSelect: (arg: any) => void;
+  onSelect: (arg: IComponent) => void;
 }
 
 export const Pannel: React.FC<IProps> = ({
@@ -19,6 +18,7 @@ export const Pannel: React.FC<IProps> = ({
   onOpen,
   onClose
 }) => {
+  const groups = plugins.components.getGroups();
   const [group, setGroup] = useState(groups[0]);
 
   const components = useMemo(() => {
@@ -59,7 +59,8 @@ export const Pannel: React.FC<IProps> = ({
                         onSelect({
                           name: Component.originName,
                           schema: Component.schema,
-                          props: Component.defaultProps
+                          props: Component.defaultProps,
+                          fns: []
                         });
                       }}
                     ></div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import App from 'next/app';
+import 'plugins';
 import 'antd/dist/antd.css';
 import 'theme/reset.scss';
 import 'theme/var.scss';

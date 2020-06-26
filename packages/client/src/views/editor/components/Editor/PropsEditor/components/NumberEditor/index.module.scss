@@ -8,6 +8,8 @@
   > span {
     color: var(--editor-text-color-primary);
     white-space: nowrap;
+    display: flex;
+    align-items: center;
   }
 
   > div {

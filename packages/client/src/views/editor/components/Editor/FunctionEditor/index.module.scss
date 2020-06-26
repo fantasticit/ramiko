@@ -1,0 +1,55 @@
+.wrapper {
+  :global {
+    .ant-collapse-borderless {
+      background-color: transparent;
+    }
+
+    .ant-collapse-item-active {
+      background-color: var(--editor-main-bgcolor);
+    }
+
+    .ant-collapse-borderless > .ant-collapse-item {
+      border-color: var(--editor-border-color);
+    }
+
+    .ant-collapse-header {
+      display: flex;
+      align-items: center;
+      background-color: var(--editor-pannel-bgcolor);
+
+      span.anticon {
+        color: var(--editor-text-color-thirty) !important;
+      }
+    }
+
+    .ant-collapse-item-active .ant-collapse-header {
+      background-color: transparent;
+    }
+  }
+
+  span.pannellHeader {
+    flex: 1;
+    display: inline-block;
+    color: var(--editor-text-color-second);
+    margin: 0;
+    padding-right: var(--editor-padding-horizontal-small);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  span.desc {
+    display: inline-block;
+    color: var(--editor-text-color-thirty);
+    font-size: var(--editor-text-font-size-helper);
+    padding-left: var(--editor-padding-horizontal-small);
+    vertical-align: text-bottom;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  > main {
+    padding: var(--editor-padding-vertical-medium) 0;
+  }
+}

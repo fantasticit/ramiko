@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  > h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--editor-text-color-primary);
+    font-size: var(--editor-text-font-size-title);
+    padding: var(--editor-padding-vertical)
+      var(--editor-padding-horizontal-medium);
+    margin: 0;
+
+    > span:last-of-type {
+      cursor: pointer;
+    }
+  }
+
+  > main {
+    flex: 1;
+    padding: 0px 12px;
+    overflow: auto;
+
+    > ul {
+      margin: 0;
+      flex: 1;
+      overflow: auto;
+      overflow-x: hidden;
+    }
+  }
+}
