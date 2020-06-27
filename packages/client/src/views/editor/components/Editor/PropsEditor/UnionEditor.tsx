@@ -50,8 +50,6 @@ export const UnionEditor = ({
     rootOnChange(newValue);
   };
 
-  console.log(value, schema);
-
   if (!Array.isArray(value)) {
     return (
       <div className={style.unioEditorWrapper}>
