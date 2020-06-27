@@ -16,16 +16,16 @@ Tracking.defaultProps = {
 
 (Tracking as any).schema = {
   op: {
-    label: '曝光方式',
+    title: '曝光方式',
     type: 'radio',
     options: ['click', 'pv']
   },
   pageSn: {
-    label: '页面编号',
+    title: '页面编号',
     type: 'number'
   },
   pageElSn: {
-    label: '元素编号',
+    title: '元素编号',
     type: 'number'
   }
 };

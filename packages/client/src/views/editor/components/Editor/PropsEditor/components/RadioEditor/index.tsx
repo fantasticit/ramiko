@@ -12,7 +12,10 @@ export const RadioEditor = ({ schema, value, onChange }) => {
 
   return (
     <div className={style.wrapper}>
-      <span>{schema.label || '单选'}</span>
+      <span>
+        {schema.title || '单选'}
+        <span className={style.desc}>{schema.desc}</span>
+      </span>
       <div>
         <Radio.Group
           onChange={e => {

@@ -45,26 +45,26 @@ Carousel.defaultProps = {
 (Carousel as any).schema = {
   autoplay: {
     type: 'switch',
-    label: '自动播放'
+    title: '自动播放'
   },
   dotPosition: {
-    label: '指点位置',
+    title: '指点位置',
     type: 'radio',
     options: ['top', 'bottom', 'left', 'right']
   },
   carousels: {
     type: 'children',
     min: 1,
-    label: '轮播组',
+    title: '轮播组',
     schema: {
       url: {
-        label: '图片链接',
+        title: '图片链接',
         type: 'img',
         width: 686,
         height: 180
       },
       link: {
-        label: '跳转链接',
+        title: '跳转链接',
         type: 'text'
       }
     }

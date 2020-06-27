@@ -82,40 +82,40 @@ ImgTextTab.defaultProps = {
 
 (ImgTextTab as any).schema = {
   defaultActive: {
-    label: '默认选中',
+    title: '默认选中',
     type: 'text'
   },
   tabPosition: {
-    label: '页签位置',
+    title: '页签位置',
     type: 'radio',
     options: ['top', 'bottom', 'left', 'right']
   },
   tabs: {
     type: 'children',
     min: 2,
-    label: '标签',
+    title: '标签',
     schema: {
       name: {
-        label: '标题',
+        title: '标题',
         type: 'text'
       },
       items: {
         type: 'children',
         min: 1,
-        label: '图文',
+        title: '图文',
         schema: {
           cover: {
-            label: '图片链接',
+            title: '图片链接',
             type: 'img',
             width: 686,
             height: 180
           },
           title: {
-            label: '文字',
+            title: '文字',
             type: 'text'
           },
           link: {
-            label: '跳转链接',
+            title: '跳转链接',
             type: 'text'
           }
         }

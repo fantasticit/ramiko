@@ -8,16 +8,19 @@ export const ImgEditor = ({ schema, value, onChange }) => {
   return (
     <div className={style.wrapper}>
       <p>
-        {schema.label || '图片'}
-        <span>
+        {schema.title || '图片'}
+        <span className={style.desc}>
           建议尺寸
           {width}*{height}
         </span>
+        <span className={style.desc}>{schema.desc}</span>
       </p>
-      <div className={style.imgWrapper}>
-        <img src={value} />
-        <span>{value}</span>
-      </div>
+      {value ? (
+        <div className={style.imgWrapper}>
+          <img src={value} />
+          <span>{value}</span>
+        </div>
+      ) : null}
       <div>
         <Input value={value} onChange={e => onChange(e.target.value)}></Input>
       </div>

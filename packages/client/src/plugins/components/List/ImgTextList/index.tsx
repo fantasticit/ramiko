@@ -68,24 +68,24 @@ ImgTextList.defaultProps = {
 (ImgTextList as any).schema = {
   items: {
     type: 'children',
-    label: '列表',
+    title: '列表',
     schema: {
       cover: {
-        label: '图片链接',
+        title: '图片链接',
         type: 'img',
         width: 686,
         height: 180
       },
       title: {
-        label: '标题',
+        title: '标题',
         type: 'text'
       },
       subTitle: {
-        label: '副标题',
+        title: '副标题',
         type: 'text'
       },
       link: {
-        label: '跳转链接',
+        title: '跳转链接',
         type: 'text'
       }
     }

@@ -29,7 +29,7 @@ LeftBorderTitle.defaultProps = {
 (LeftBorderTitle as any).schema = {
   ...(BaseTitle as any).schema,
   borderColor: {
-    label: '背景色',
+    title: '背景色',
     type: 'color'
   }
 };

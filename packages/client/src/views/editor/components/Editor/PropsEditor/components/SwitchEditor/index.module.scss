@@ -8,5 +8,9 @@
     color: var(--editor-text-color-primary);
     display: flex;
     align-items: center;
+
+    .desc {
+      color: var(--editor-text-color-second);
+    }
   }
 }

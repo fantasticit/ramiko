@@ -23,15 +23,15 @@ Footer.defaultProps = {
 
 (Footer as any).schema = {
   text: {
-    label: '文字',
+    title: '文字',
     type: 'text'
   },
   bgcolor: {
-    label: '背景色',
+    title: '背景色',
     type: 'color'
   },
   align: {
-    label: '对齐方式',
+    title: '对齐方式',
     type: 'radio',
     options: ['left', 'center', 'right']
   }

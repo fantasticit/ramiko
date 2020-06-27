@@ -7,7 +7,10 @@ export const TextareaEditor = ({ schema, value, onChange }) => {
 
   return (
     <div className={style.wrapper}>
-      <p>{schema.label || '文本'}</p>
+      <p>
+        {schema.title || '文本'}
+        <span className={style.desc}>{schema.desc}</span>
+      </p>
       <div>
         <Input.TextArea
           value={value}

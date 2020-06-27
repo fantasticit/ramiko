@@ -26,17 +26,17 @@ Cover.defaultProps = {
 
 (Cover as any).schema = {
   isFull: {
-    label: '全宽展示',
+    title: '全宽展示',
     type: 'switch'
   },
   imgUrl: {
-    label: '图片链接',
+    title: '图片链接',
     type: 'img',
     width: 686,
     height: 180
   },
   link: {
-    label: '跳转链接',
+    title: '跳转链接',
     type: 'text'
   }
 };

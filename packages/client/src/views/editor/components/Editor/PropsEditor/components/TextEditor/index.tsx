@@ -7,7 +7,10 @@ export const TextEditor = ({ schema, value, onChange }) => {
 
   return (
     <div className={style.wrapper}>
-      <p>{schema.label || '文本'}</p>
+      <p>
+        {schema.title || '文本'}
+        <span className={style.desc}>{schema.desc}</span>
+      </p>
       <div>
         <Input value={value} onChange={e => onChange(e.target.value)}></Input>
       </div>

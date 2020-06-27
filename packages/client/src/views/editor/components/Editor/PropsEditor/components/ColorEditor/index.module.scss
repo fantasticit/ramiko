@@ -9,6 +9,10 @@
     display: flex;
     align-items: center;
     color: var(--editor-text-color-primary);
+
+    .desc {
+      color: var(--editor-text-color-second);
+    }
   }
 
   > div > div {
@@ -17,6 +21,7 @@
     padding: 4px 8px;
     color: var(--editor-text-color-second);
     border: 1px solid var(--editor-border-color);
+    border-radius: 2px;
 
     .block {
       display: inline-block;

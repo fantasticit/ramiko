@@ -1,5 +1,11 @@
 export type Mode = 'edit' | 'preview';
 
+export interface IPageSetting {
+  bgcolor: string;
+  bgimg: string;
+  javascript: string;
+}
+
 // 组件基本数据
 export interface IComponentData {
   id?: number; // 组件当前索引
@@ -13,3 +19,19 @@ export interface IComponentData {
 export interface IComponent extends IComponentData {
   fns: Array<IComponentData>;
 }
+
+export const pageSchema = {
+  bgcolor: {
+    title: '背景色',
+    type: 'color'
+  },
+  bgimg: {
+    title: '背景图',
+    type: 'img'
+  },
+  js: {
+    title: 'JavaScript',
+    desc: '仅保存后生效',
+    type: 'textarea'
+  }
+};

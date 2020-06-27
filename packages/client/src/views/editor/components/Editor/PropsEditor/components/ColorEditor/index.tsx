@@ -9,7 +9,10 @@ export const ColorEditor = ({ schema, value, onChange }) => {
 
   return (
     <div className={style.wrapper}>
-      <span>{schema.label || '颜色'}</span>
+      <span>
+        {schema.title || '颜色'}
+        <span className={style.desc}>{schema.desc}</span>
+      </span>
       <div>
         <Popover
           placement={'leftTop'}

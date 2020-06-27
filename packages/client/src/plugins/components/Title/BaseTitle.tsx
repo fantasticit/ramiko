@@ -15,25 +15,25 @@ export const BaseTitle = ({ title, color, bgcolor, align }) => {
 BaseTitle.defaultProps = {
   title: '标题',
   color: '#333',
-  bgcolor: '#fff',
+  bgcolor: 'transparent',
   align: 'left'
 };
 
 (BaseTitle as any).schema = {
   title: {
-    label: '标题',
+    title: '标题',
     type: 'text'
   },
   color: {
-    label: '文字颜色',
+    title: '文字颜色',
     type: 'color'
   },
   bgcolor: {
-    label: '背景色',
+    title: '背景色',
     type: 'color'
   },
   align: {
-    label: '对齐方式',
+    title: '对齐方式',
     type: 'radio',
     options: ['left', 'center', 'right']
   }

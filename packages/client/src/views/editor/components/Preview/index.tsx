@@ -11,13 +11,15 @@ import {
   DeleteOutlined,
   CopyOutlined
 } from '@ant-design/icons';
-import { Mode, IComponent } from '../../type';
+import { Mode, IComponent, IPageSetting } from '../../type';
+import { transformPageStyle } from '../../renderPage';
 import { DndCover } from './DndCover';
 import { renderComponent } from './renderComponent';
 import style from './index.module.scss';
 
 interface IProps {
   components: Array<IComponent>;
+  setting: IPageSetting;
   mode: Mode;
   onClosePreview: () => void;
   onMove: (
@@ -36,6 +38,7 @@ interface IProps {
 const COMPONENT_COVER_WRAPPER_ID_PREFIX = 'ramiko_component_cover_wrapper_';
 
 export const Preview: React.FC<IProps> = ({
+  setting = null,
   components = [],
   mode = 'edit',
   onClosePreview,
@@ -189,6 +192,7 @@ export const Preview: React.FC<IProps> = ({
             style.contentWrapper,
             isEdit ? false : style.isPreview
           )}
+          style={transformPageStyle({ setting })}
         >
           {components.map((component, index) => {
             return (

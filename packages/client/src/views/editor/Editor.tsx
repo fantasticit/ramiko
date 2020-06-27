@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 import cls from 'classnames';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { PageProvider } from 'api/page';
-import { Mode, IComponent } from './type';
+import { Mode, IComponent, IPageSetting } from './type';
 import { Header } from './components/Header';
 import { Pannel } from './components/Pannel';
 import { Preview } from './components/Preview';
@@ -22,12 +22,16 @@ export const Editor: React.FC<IProps> = ({
 }) => {
   const [, setCount] = useState<number>(-1);
   const unsafeUpdate = () => setCount(v => v + 1);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [mode, setMode] = useState<Mode>('edit');
   const [componentPannelVisible, setComponentPannelVisible] = useState<boolean>(
     true
   );
   const [propsEditorVisible, setPropsEditorVisible] = useState<boolean>(true);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [pageSetting, setPageSetting] = useState<IPageSetting>(
+    Object.create(null)
+  );
   const [components, setComponents] = useState<Array<IComponent>>(
     defaultComponents
   );
@@ -172,22 +176,24 @@ export const Editor: React.FC<IProps> = ({
         }))
       };
     });
-    PageProvider.addPage({ name: Math.random(), content: data }).then(
-      (res: any) => {
-        setLoading(false);
-        const url = `${document.location.origin}${
-          isProd ? '/ramiko' : ''
-        }/page/${res.id}`;
-        Modal.confirm({
-          title: '保存成功',
-          icon: <InfoCircleOutlined />,
-          content: '页面已成功保存。可以通过 ' + url + '查看。是否现在查看？',
-          onOk: () => window.open(url),
-          okText: '去查看',
-          cancelText: '取消'
-        });
-      }
-    );
+    PageProvider.addPage({
+      name: Math.random(),
+      setting: pageSetting,
+      components: data
+    }).then((res: any) => {
+      setLoading(false);
+      const url = `${document.location.origin}${isProd ? '/ramiko' : ''}/page/${
+        res.id
+      }`;
+      Modal.confirm({
+        title: '保存成功',
+        icon: <InfoCircleOutlined />,
+        content: '页面已成功保存。可以通过 ' + url + '查看。是否现在查看？',
+        onOk: () => window.open(url),
+        okText: '去查看',
+        cancelText: '取消'
+      });
+    });
   };
 
   return (
@@ -217,7 +223,7 @@ export const Editor: React.FC<IProps> = ({
         </div>
         <Preview
           mode={mode}
-          onClosePreview={() => setMode('edit')}
+          setting={pageSetting}
           components={components}
           onEdit={index => {
             setCurrent(components[index]);
@@ -230,6 +236,7 @@ export const Editor: React.FC<IProps> = ({
           onDelete={deleteComponent}
           insertBefore={insertBefore}
           insertAfter={insertAfter}
+          onClosePreview={() => setMode('edit')}
         />
         <div
           className={cls(
@@ -239,9 +246,14 @@ export const Editor: React.FC<IProps> = ({
           )}
         >
           <PropsEditor
+            setting={pageSetting}
             component={current}
             onPropsChange={editCurrentComponentProps}
             onFunctionsChange={unsafeUpdate}
+            onSettingChange={setting => {
+              setPageSetting(setting);
+              unsafeUpdate();
+            }}
             onClose={() => setPropsEditorVisible(false)}
           />
         </div>

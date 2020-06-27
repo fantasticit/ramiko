@@ -5,13 +5,8 @@ import { renderPage } from 'views/editor';
 import style from './index.module.scss';
 
 const Page: NextPage<any> = ({ page }) => {
-  const components = page.content || [];
-
-  return (
-    <div className={style.wrapper}>
-      {renderPage({ components: page.content })}
-    </div>
-  );
+  console.log(page, renderPage(page));
+  return <div className={style.wrapper}>{renderPage(page)}</div>;
 };
 
 Page.getInitialProps = async ctx => {

@@ -26,10 +26,10 @@ Paragraph.defaultProps = {
   items: {
     type: 'children',
     min: 1,
-    label: '文本',
+    title: '文本',
     schema: {
       content: {
-        label: '文字',
+        title: '文字',
         type: 'textarea'
       }
     }

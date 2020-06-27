@@ -7,7 +7,10 @@ export const NumberEditor = ({ schema, value, onChange }) => {
 
   return (
     <div className={style.wrapper}>
-      <span>{schema.label || '文本'}</span>
+      <span>
+        {schema.title || '文本'}
+        <span className={style.desc}>{schema.desc}</span>
+      </span>
       <div>
         <InputNumber value={value} onChange={onChange} />
       </div>
