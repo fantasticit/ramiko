@@ -1,14 +1,24 @@
 import React from 'react';
 import cls from 'classnames';
+import {
+  paddingCss,
+  paddingCssSchema,
+  marginCss,
+  marginCssSchema,
+  fontCss,
+  fontCssSchema,
+  transformStyle
+} from 'views/editor';
 import style from './index.module.scss';
 
-export const Cover = ({ isFull = false, link, imgUrl }) => {
+export const Cover = ({ isFull = false, link, imgUrl, style: commonStyle }) => {
   return (
     <div
       className={cls({
         [style.wrapper]: true,
         [style.isFull]: isFull
       })}
+      style={transformStyle(style)}
     >
       <a href={link}>
         <img src={imgUrl} alt={imgUrl} />
@@ -21,7 +31,12 @@ Cover.defaultProps = {
   isFull: false,
   imgUrl:
     'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-04-26/ChMkJ14X3aqIScr1AAWqQrbP6Y0AAwP_gGzCE0ABapa019.jpg',
-  link: ''
+  link: '',
+  style: {
+    margin: marginCss,
+    padding: paddingCss,
+    font: fontCss
+  }
 };
 
 (Cover as any).schema = {
@@ -38,5 +53,14 @@ Cover.defaultProps = {
   link: {
     title: '跳转链接',
     type: 'text'
+  },
+  style: {
+    type: 'children',
+    title: '基本样式',
+    schema: {
+      margin: marginCssSchema,
+      padding: paddingCssSchema,
+      font: fontCssSchema
+    }
   }
 };

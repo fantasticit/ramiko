@@ -1,10 +1,24 @@
 import React from 'react';
 import { Carousel as ACarousel } from 'antd';
+import {
+  paddingCss,
+  paddingCssSchema,
+  marginCss,
+  marginCssSchema,
+  fontCss,
+  fontCssSchema,
+  transformStyle
+} from 'views/editor';
 import style from './index.module.scss';
 
-export const Carousel = ({ autoplay, dotPosition, carousels = [] }) => {
+export const Carousel = ({
+  autoplay,
+  dotPosition,
+  carousels = [],
+  style: commonStyle
+}) => {
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} style={transformStyle(commonStyle)}>
       <ACarousel autoplay={autoplay} dotPosition={dotPosition}>
         {carousels.map((carousel, index) => {
           return (
@@ -39,7 +53,12 @@ Carousel.defaultProps = {
         'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-05-06/wallhaven-6kegww.jpg',
       link: 'http://www.baidu.com'
     }
-  ]
+  ],
+  style: {
+    margin: marginCss,
+    padding: paddingCss,
+    font: fontCss
+  }
 };
 
 (Carousel as any).schema = {
@@ -67,6 +86,15 @@ Carousel.defaultProps = {
         title: '跳转链接',
         type: 'text'
       }
+    }
+  },
+  style: {
+    type: 'children',
+    title: '基本样式',
+    schema: {
+      margin: marginCssSchema,
+      padding: paddingCssSchema,
+      font: fontCssSchema
     }
   }
 };

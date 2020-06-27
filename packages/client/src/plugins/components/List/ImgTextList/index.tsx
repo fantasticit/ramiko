@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Tabs } from 'antd';
+import React from 'react';
+import {
+  paddingCss,
+  paddingCssSchema,
+  marginCss,
+  marginCssSchema,
+  fontCss,
+  fontCssSchema,
+  transformStyle
+} from 'views/editor';
 import chunk from 'lodash/chunk';
 import style from './index.module.scss';
 
-export const ImgTextList = ({ items = [] }) => {
+export const ImgTextList = ({ items = [], style: commonStyle }) => {
   const groups = chunk(items, 2);
 
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} style={transformStyle(style)}>
       {groups.map((group, i) => {
         return (
           <div className={style.row} key={i}>
@@ -62,7 +70,12 @@ ImgTextList.defaultProps = {
       subTitle: '呦西呦西',
       link: '/'
     }
-  ]
+  ],
+  style: {
+    margin: marginCss,
+    padding: paddingCss,
+    font: fontCss
+  }
 };
 
 (ImgTextList as any).schema = {
@@ -88,6 +101,15 @@ ImgTextList.defaultProps = {
         title: '跳转链接',
         type: 'text'
       }
+    }
+  },
+  style: {
+    type: 'children',
+    title: '基本样式',
+    schema: {
+      margin: marginCssSchema,
+      padding: paddingCssSchema,
+      font: fontCssSchema
     }
   }
 };

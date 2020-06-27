@@ -1,12 +1,17 @@
 import React from 'react';
-import style from './index.module.scss';
+import {
+  paddingCss,
+  paddingCssSchema,
+  marginCss,
+  marginCssSchema,
+  fontCss,
+  fontCssSchema,
+  transformStyle
+} from 'views/editor';
 
-export const BaseTitle = ({ title, color, bgcolor, align }) => {
+export const BaseTitle = ({ title, style }) => {
   return (
-    <div
-      className={style.wrapper}
-      style={{ textAlign: align, backgroundColor: bgcolor, color }}
-    >
+    <div className={style.wrapper} style={transformStyle(style)}>
       {title}
     </div>
   );
@@ -16,7 +21,11 @@ BaseTitle.defaultProps = {
   title: '标题',
   color: '#333',
   bgcolor: 'transparent',
-  align: 'left'
+  style: {
+    margin: marginCss,
+    padding: paddingCss,
+    font: fontCss
+  }
 };
 
 (BaseTitle as any).schema = {
@@ -24,17 +33,13 @@ BaseTitle.defaultProps = {
     title: '标题',
     type: 'text'
   },
-  color: {
-    title: '文字颜色',
-    type: 'color'
-  },
-  bgcolor: {
-    title: '背景色',
-    type: 'color'
-  },
-  align: {
-    title: '对齐方式',
-    type: 'radio',
-    options: ['left', 'center', 'right']
+  style: {
+    type: 'children',
+    title: '基本样式',
+    schema: {
+      margin: marginCssSchema,
+      padding: paddingCssSchema,
+      font: fontCssSchema
+    }
   }
 };

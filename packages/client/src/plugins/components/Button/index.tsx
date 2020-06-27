@@ -1,7 +1,16 @@
 import React from 'react';
+import {
+  paddingCss,
+  paddingCssSchema,
+  marginCss,
+  marginCssSchema,
+  fontCss,
+  fontCssSchema,
+  transformStyle
+} from 'views/editor';
 import style from './index.module.scss';
 
-export const Button = ({ isFull, href, text, bgcolor, align }) => {
+export const Button = ({ isFull, href, text, bgcolor, style: commonStyle }) => {
   return (
     <div
       className={style.wrapper}
@@ -13,7 +22,7 @@ export const Button = ({ isFull, href, text, bgcolor, align }) => {
         href={href}
         style={{
           backgroundColor: bgcolor,
-          textAlign: align
+          ...transformStyle(commonStyle)
         }}
       >
         {text}
@@ -27,7 +36,11 @@ Button.defaultProps = {
   href: '/',
   text: '文字',
   bgcolor: '#6260e1',
-  align: 'center'
+  style: {
+    margin: marginCss,
+    padding: paddingCss,
+    font: fontCss
+  }
 };
 
 (Button as any).schema = {
@@ -47,9 +60,13 @@ Button.defaultProps = {
     title: '背景色',
     type: 'color'
   },
-  align: {
-    title: '对齐方式',
-    type: 'radio',
-    options: ['left', 'center', 'right']
+  style: {
+    type: 'children',
+    title: '基本样式',
+    schema: {
+      margin: marginCssSchema,
+      padding: paddingCssSchema,
+      font: fontCssSchema
+    }
   }
 };

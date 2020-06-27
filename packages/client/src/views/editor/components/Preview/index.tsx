@@ -51,6 +51,9 @@ export const Preview: React.FC<IProps> = ({
   insertAfter
 }) => {
   const isEdit = mode === 'edit';
+  const pageStyle = transformPageStyle({ setting });
+  delete pageStyle.minHeight;
+  delete pageStyle.height;
   const toolboxRef = useRef(null);
   const hoverBgRef = useRef(null);
   const [current, setCurrent] = useState(null);
@@ -192,7 +195,7 @@ export const Preview: React.FC<IProps> = ({
             style.contentWrapper,
             isEdit ? false : style.isPreview
           )}
-          style={transformPageStyle({ setting })}
+          style={pageStyle}
         >
           {components.map((component, index) => {
             return (

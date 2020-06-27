@@ -3,7 +3,7 @@ import { InputNumber } from 'antd';
 import style from './index.module.scss';
 
 export const NumberEditor = ({ schema, value, onChange }) => {
-  const { width, height } = schema;
+  const { min = -Infinity } = schema;
 
   return (
     <div className={style.wrapper}>
@@ -12,7 +12,7 @@ export const NumberEditor = ({ schema, value, onChange }) => {
         <span className={style.desc}>{schema.desc}</span>
       </span>
       <div>
-        <InputNumber value={value} onChange={onChange} />
+        <InputNumber value={value} onChange={onChange} min={min} />
       </div>
     </div>
   );

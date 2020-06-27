@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs } from 'antd';
+import {
+  paddingCss,
+  paddingCssSchema,
+  marginCss,
+  marginCssSchema,
+  fontCss,
+  fontCssSchema,
+  transformStyle
+} from 'views/editor';
 import style from './index.module.scss';
 
-export const ImgTextTab = ({ tabs, defaultActive, tabPosition }) => {
+export const ImgTextTab = ({
+  tabs,
+  defaultActive,
+  tabPosition,
+  style: commonStyle
+}) => {
   const [activeKey, setActiveKey] = useState(defaultActive);
 
   useEffect(() => {
@@ -10,7 +24,7 @@ export const ImgTextTab = ({ tabs, defaultActive, tabPosition }) => {
   }, [defaultActive]);
 
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} style={transformStyle(commonStyle)}>
       <Tabs
         tabPosition={tabPosition}
         activeKey={activeKey}
@@ -77,7 +91,12 @@ ImgTextTab.defaultProps = {
         }
       ]
     }
-  ]
+  ],
+  style: {
+    margin: marginCss,
+    padding: paddingCss,
+    font: fontCss
+  }
 };
 
 (ImgTextTab as any).schema = {
@@ -120,6 +139,15 @@ ImgTextTab.defaultProps = {
           }
         }
       }
+    }
+  },
+  style: {
+    type: 'children',
+    title: '基本样式',
+    schema: {
+      margin: marginCssSchema,
+      padding: paddingCssSchema,
+      font: fontCssSchema
     }
   }
 };

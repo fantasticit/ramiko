@@ -1,19 +1,20 @@
 import React from 'react';
 import cls from 'classnames';
+import { transformStyle } from 'views/editor';
+
 import { BaseTitle } from './BaseTitle';
 import style from './index.module.scss';
 
 export const LeftBorderTitle = ({
   title,
-  color,
   bgcolor,
-  align,
-  borderColor
+  borderColor,
+  style: commonStyle
 }) => {
   return (
     <div
       className={cls(style.wrapper, style.isLeftBorder)}
-      style={{ textAlign: align, backgroundColor: bgcolor, color }}
+      style={{ backgroundColor: bgcolor, ...transformStyle(commonStyle) }}
     >
       <span style={{ backgroundColor: borderColor }}></span>
       <span>{title}</span>
@@ -27,9 +28,10 @@ LeftBorderTitle.defaultProps = {
 };
 
 (LeftBorderTitle as any).schema = {
-  ...(BaseTitle as any).schema,
+  title: (BaseTitle as any).schema.title,
   borderColor: {
     title: '背景色',
     type: 'color'
-  }
+  },
+  style: (BaseTitle as any).schema.style
 };

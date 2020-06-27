@@ -18,7 +18,9 @@
   > div > div {
     display: flex;
     align-items: center;
-    padding: 4px 8px;
+    min-width: 90px;
+    padding: 6px 11px;
+    background-color: #fff;
     color: var(--editor-text-color-second);
     border: 1px solid var(--editor-border-color);
     border-radius: 2px;

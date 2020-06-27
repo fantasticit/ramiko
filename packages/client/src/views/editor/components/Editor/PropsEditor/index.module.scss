@@ -1,4 +1,6 @@
 .unioEditorWrapper {
+  padding: var(--editor-padding-vertical-medium) 0;
+
   > div.title {
     font-size: var(--editor-text-font-size-helper);
     color: var(--editor-text-color-primary);
@@ -36,8 +38,9 @@
   span.pannellHeader {
     flex: 1;
     display: inline-block;
-    color: var(--editor-text-color-second);
     margin: 0;
+    font-size: var(--editor-text-font-size-helper);
+    color: var(--editor-text-color-primary);
     padding-right: var(--editor-padding-horizontal-small);
     text-overflow: ellipsis;
     overflow: hidden;

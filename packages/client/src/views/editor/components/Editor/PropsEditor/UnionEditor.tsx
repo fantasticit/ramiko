@@ -34,7 +34,7 @@ export const UnionEditor = ({
     rootOnChange([...rootNewValue, target]);
   };
 
-  const remove = index => {
+  const removeOfArray = index => {
     if (value.length <= min) {
       message.error(`最少${min}个.`);
       return;
@@ -44,9 +44,72 @@ export const UnionEditor = ({
     rootOnChange(newValue);
   };
 
+  const removeOfObject = key => {
+    const newValue = clone(rootNewValue);
+    delete newValue[key];
+    rootOnChange(newValue);
+  };
+
+  console.log(value, schema);
+
+  if (!Array.isArray(value)) {
+    return (
+      <div className={style.unioEditorWrapper}>
+        <div className={style.title}>{schema.title || '组'}</div>
+        <Collapse expandIconPosition={'right'} bordered={false} accordion>
+          {Object.keys(value).map(key => {
+            return typeof value[key] === 'object' ? (
+              <Panel
+                header={
+                  <span className={style.pannellHeader}>
+                    {subSchema[key].title || '组'}
+                  </span>
+                }
+                key={key}
+              >
+                {Object.keys(value[key]).map(subKey => {
+                  return renderEditorItem(
+                    subKey,
+                    value[key][subKey],
+                    subSchema[key][subKey],
+                    (subKey, newVal) => {
+                      set(rootNewValue, `${key}.${subKey}`, newVal);
+                      rootOnChange(rootNewValue);
+                    }
+                  );
+                })}
+              </Panel>
+            ) : (
+              <Panel
+                header={
+                  <span className={style.pannellHeader}>
+                    {subSchema.title || '组'}
+                  </span>
+                }
+                key={key}
+              >
+                {renderEditorItem(
+                  key,
+                  value[key],
+                  subSchema[key],
+                  (key, newVal) => {
+                    set(rootNewValue, `${key}`, newVal);
+                    rootOnChange(rootNewValue);
+                  }
+                )}
+              </Panel>
+            );
+          })}
+        </Collapse>
+
+        {/* </Panel> */}
+      </div>
+    );
+  }
+
   return (
     <div className={style.unioEditorWrapper}>
-      <div className={style.title}>{schema.label || '组'}</div>
+      <div className={style.title}>{schema.title || '组'}</div>
       <Collapse expandIconPosition={'right'} bordered={false} accordion>
         {value.map((v, index) => {
           const key = bindKey + '_' + index;
@@ -62,7 +125,7 @@ export const UnionEditor = ({
                 <DeleteOutlined
                   onClick={event => {
                     event.stopPropagation();
-                    remove(index);
+                    removeOfArray(index);
                   }}
                 />
               }

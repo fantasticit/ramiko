@@ -1,13 +1,22 @@
 import React from 'react';
+import {
+  paddingCss,
+  paddingCssSchema,
+  marginCss,
+  marginCssSchema,
+  fontCss,
+  fontCssSchema,
+  transformStyle
+} from 'views/editor';
 import style from './index.module.scss';
 
-export const Footer = ({ text, bgcolor, align }) => {
+export const Footer = ({ text, bgcolor, style: commonStyle }) => {
   return (
     <div
       className={style.wrapper}
       style={{
         backgroundColor: bgcolor,
-        textAlign: align
+        ...transformStyle(commonStyle)
       }}
     >
       {text}
@@ -18,7 +27,11 @@ export const Footer = ({ text, bgcolor, align }) => {
 Footer.defaultProps = {
   text: '本页面由Ramiko提供',
   bgcolor: '#f8f8f8',
-  align: 'center'
+  style: {
+    margin: marginCss,
+    padding: paddingCss,
+    font: fontCss
+  }
 };
 
 (Footer as any).schema = {
@@ -30,9 +43,13 @@ Footer.defaultProps = {
     title: '背景色',
     type: 'color'
   },
-  align: {
-    title: '对齐方式',
-    type: 'radio',
-    options: ['left', 'center', 'right']
+  style: {
+    type: 'children',
+    title: '基本样式',
+    schema: {
+      margin: marginCssSchema,
+      padding: paddingCssSchema,
+      font: fontCssSchema
+    }
   }
 };
