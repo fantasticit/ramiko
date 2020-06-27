@@ -1,8 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import debounce from 'lodash/debounce';
 import cls from 'classnames';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Divider } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import {
@@ -13,9 +12,21 @@ import {
 } from '@ant-design/icons';
 import { Mode, IComponent, IPageSetting } from '../../type';
 import { transformPageStyle } from '../../renderPage';
-import { DndCover } from './DndCover';
 import { renderComponent } from './renderComponent';
 import style from './index.module.scss';
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  userSelect: 'none',
+  border: isDragging ? '1px dashed #000' : 'none',
+  background: isDragging ? '#fff' : 'transparent',
+  ...draggableStyle
+});
+
+const getListStyle = isDraggingOver => ({
+  background: 'transparent',
+  padding: 0,
+  width: '100%'
+});
 
 interface IProps {
   components: Array<IComponent>;
@@ -91,7 +102,7 @@ export const Preview: React.FC<IProps> = ({
       }
     },
     50,
-    { leading: true, traling: false }
+    { leading: true, trailing: false }
   );
 
   const moveComponent = direction => {
@@ -178,89 +189,114 @@ export const Preview: React.FC<IProps> = ({
     setCurrent(null);
   };
 
+  const onDragEnd = result => {
+    if (!result.destination) {
+      return;
+    }
+
+    handleSwap(+result.source.index, +result.destination.index);
+  };
+
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className={cls(style.wrapper, isEdit ? false : style.isPreview)}>
-        <div
-          className={cls(
-            style.closePreviewWrapper,
-            isEdit ? false : style.isPreview
-          )}
-          onClick={onClosePreview}
-        >
-          <CloseOutlined />
-        </div>
-        <div
-          className={cls(
-            style.contentWrapper,
-            isEdit ? false : style.isPreview
-          )}
-          style={pageStyle}
-        >
-          {components.map((component, index) => {
-            return (
-              <div
-                className={cls(
-                  style.componentWrapper,
-                  currentIndex === index && isEdit ? style.isHover : false
-                )}
-                key={index}
-              >
-                {isEdit ? (
-                  <DndCover
-                    domId={COMPONENT_COVER_WRAPPER_ID_PREFIX + index}
-                    id={index}
-                    index={index}
-                    onMouseMove={e => {
-                      e.persist();
-                      setCurrent(component);
-                      setCurrentIndex(index);
-                      handleMove(e);
-                    }}
-                    onClick={() => {
-                      setCurrent(component);
-                      setCurrentIndex(index);
-                      onEdit(index);
-                    }}
-                    onDrop={handleSwap}
-                    onInsertBefore={handleInsertBefore}
-                    onInsertAfter={handleInsertAfter}
-                  />
-                ) : null}
-                <div className={style.componentInstanceWrapper}>
-                  {renderComponent({ component, isEdit })}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div
-          className={style.hoverBgWrapper}
-          ref={hoverBgRef}
-          style={{ visibility: isEdit ? 'visible' : 'hidden' }}
-        ></div>
-        <div
-          className={style.toolboxWrapper}
-          ref={toolboxRef}
-          style={{
-            visibility: currentIndex > -1 && isEdit ? 'visible' : 'hidden'
-          }}
-        >
-          <ul>
-            <li>
-              <ArrowUpOutlined onClick={() => moveComponent('up')} />
-              <Divider className={style.dividerWrapper} />
-              <ArrowDownOutlined onClick={() => moveComponent('down')} />
-            </li>
-            <li>
-              <CopyOutlined onClick={copy} />
-            </li>
-            <li>
-              <DeleteOutlined onClick={deleteComponent} />
-            </li>
-          </ul>
-        </div>
+    <div className={cls(style.wrapper, isEdit ? false : style.isPreview)}>
+      <div
+        className={cls(
+          style.closePreviewWrapper,
+          isEdit ? false : style.isPreview
+        )}
+        onClick={onClosePreview}
+      >
+        <CloseOutlined />
       </div>
-    </DndProvider>
+      <div
+        className={cls(style.contentWrapper, isEdit ? false : style.isPreview)}
+        style={pageStyle}
+      >
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(droppableProvided, droppableSnapshot) => (
+              <div
+                ref={droppableProvided.innerRef}
+                style={getListStyle(droppableSnapshot.isDraggingOver)}
+              >
+                {components.map((component, index) => (
+                  <Draggable
+                    key={component.id}
+                    className={cls(
+                      style.componentWrapper,
+                      currentIndex === index && isEdit ? style.isHover : false
+                    )}
+                    draggableId={'' + component.id}
+                    index={index}
+                  >
+                    {(draggableProvided, draggableSnapshot) => (
+                      <div
+                        className={style.componentWrapper}
+                        ref={draggableProvided.innerRef}
+                        {...draggableProvided.draggableProps}
+                        {...draggableProvided.dragHandleProps}
+                        style={getItemStyle(
+                          draggableSnapshot.isDragging,
+                          draggableProvided.draggableProps.style
+                        )}
+                      >
+                        {isEdit && (
+                          <div
+                            id={COMPONENT_COVER_WRAPPER_ID_PREFIX + index}
+                            className={style.componentCoverWrapper}
+                            onMouseMove={e => {
+                              e.persist();
+                              setCurrent(component);
+                              setCurrentIndex(index);
+                              handleMove(e);
+                            }}
+                            onClick={() => {
+                              setCurrent(component);
+                              setCurrentIndex(index);
+                              onEdit(index);
+                            }}
+                          />
+                        )}
+
+                        <div className={style.componentInstanceWrapper}>
+                          {renderComponent({ component, isEdit })}
+                        </div>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {droppableProvided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
+      <div
+        className={style.hoverBgWrapper}
+        ref={hoverBgRef}
+        style={{ visibility: isEdit ? 'visible' : 'hidden' }}
+      ></div>
+      <div
+        className={style.toolboxWrapper}
+        ref={toolboxRef}
+        style={{
+          visibility: currentIndex > -1 && isEdit ? 'visible' : 'hidden'
+        }}
+      >
+        <ul>
+          <li>
+            <ArrowUpOutlined onClick={() => moveComponent('up')} />
+            <Divider className={style.dividerWrapper} />
+            <ArrowDownOutlined onClick={() => moveComponent('down')} />
+          </li>
+          <li>
+            <CopyOutlined onClick={copy} />
+          </li>
+          <li>
+            <DeleteOutlined onClick={deleteComponent} />
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 };
