@@ -11,12 +11,11 @@ import {
 } from 'views/editor';
 import style from './index.module.scss';
 
-export const Cover = ({ isFull = false, link, imgUrl, style: commonStyle }) => {
+export const Cover = ({ link, imgUrl, style: commonStyle }) => {
   return (
     <div
       className={cls({
-        [style.wrapper]: true,
-        [style.isFull]: isFull
+        [style.wrapper]: true
       })}
       style={transformStyle(commonStyle)}
     >
@@ -40,10 +39,6 @@ Cover.defaultProps = {
 };
 
 (Cover as any).schema = {
-  isFull: {
-    title: '全宽展示',
-    type: 'switch'
-  },
   imgUrl: {
     title: '图片链接',
     type: 'img',
