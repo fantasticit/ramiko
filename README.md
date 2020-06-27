@@ -66,3 +66,38 @@
 
 可能光能渲染组件是不够的，也许需要更多的功能包装，比如埋点。这一类函数本质上也是组件。可以通过 `schema` 定义进行 `props` 编辑。举个例子：
 
+```js
+import React from 'react';
+
+export const Tracking = ({ op, pageSn, pageElSn, children }) => {
+  const onClick = () => {
+    alert('埋点测试：' + op + '_' + pageSn + '_' + pageElSn);
+  };
+
+  return <div onClick={onClick}>{children}</div>;
+};
+
+Tracking.defaultProps = {
+  op: 'click',
+  pageSn: null,
+  pageElSn: null
+};
+
+Tracking.schema = {
+  op: {
+    title: '曝光方式',
+    type: 'radio',
+    options: ['click', 'pv']
+  },
+  pageSn: {
+    title: '页面编号',
+    type: 'number'
+  },
+  pageElSn: {
+    title: '元素编号',
+    type: 'number'
+  }
+};
+
+```
+
