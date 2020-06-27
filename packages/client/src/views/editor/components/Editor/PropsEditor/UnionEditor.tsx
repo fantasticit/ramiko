@@ -50,13 +50,17 @@ export const UnionEditor = ({
     rootOnChange(newValue);
   };
 
+  if (!value || !subSchema) {
+    return null;
+  }
+
   if (!Array.isArray(value)) {
     return (
       <div className={style.unioEditorWrapper}>
         <div className={style.title}>{schema.title || '组'}</div>
         <Collapse expandIconPosition={'right'} bordered={false} accordion>
           {Object.keys(value).map(key => {
-            return typeof value[key] === 'object' ? (
+            return value[key] && typeof value[key] === 'object' ? (
               <Panel
                 header={
                   <span className={style.pannellHeader}>
