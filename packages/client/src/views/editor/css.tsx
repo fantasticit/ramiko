@@ -36,7 +36,7 @@ export const paddingCssSchema = {
     min: 0
   },
   paddingRight: {
-    title: '又边距',
+    title: '右边距',
     type: 'number',
     min: 0
   },
