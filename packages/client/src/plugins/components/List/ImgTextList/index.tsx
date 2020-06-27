@@ -15,7 +15,7 @@ export const ImgTextList = ({ items = [], style: commonStyle }) => {
   const groups = chunk(items, 2);
 
   return (
-    <div className={style.wrapper} style={transformStyle(style)}>
+    <div className={style.wrapper} style={transformStyle(commonStyle)}>
       {groups.map((group, i) => {
         return (
           <div className={style.row} key={i}>
