@@ -18,7 +18,7 @@ export const Cover = ({ isFull = false, link, imgUrl }) => {
 };
 
 Cover.defaultProps = {
-  isFull: true,
+  isFull: false,
   imgUrl:
     'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-04-26/ChMkJ14X3aqIScr1AAWqQrbP6Y0AAwP_gGzCE0ABapa019.jpg',
   link: ''

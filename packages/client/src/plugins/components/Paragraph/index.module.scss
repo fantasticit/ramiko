@@ -3,29 +3,10 @@
   padding: 8px;
   font-size: 14px;
 
-  .title {
-    display: flex;
-    align-items: center;
-    font-weight: 700;
-
-    img {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-    }
-
-    span {
-      display: inline-block;
-      margin-left: 8px;
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-
   .content {
-    padding: 0.2rem;
-    font-size: 0.8em;
+    p {
+      color: #333;
+      line-height: 1.5em;
+    }
   }
 }
