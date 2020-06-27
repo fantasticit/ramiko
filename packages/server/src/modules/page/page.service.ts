@@ -89,7 +89,7 @@ export class PageService {
    */
   async updateById(id, page: Partial<Page>): Promise<Page> {
     const old = await this.pageRepository.findOne(id);
-    let { content, status } = page;
+    let { status } = page;
 
     const newPage = {
       ...page,

@@ -18,7 +18,10 @@ export class Page {
   name: string; // 页面名
 
   @Column({ default: null, type: 'json' })
-  content: object; // 页面封面
+  setting: object; // 页面设置
+
+  @Column({ default: null, type: 'json' })
+  components: object; // 页面封面
 
   @Column('simple-enum', { enum: ['draft', 'publish'] })
   status: string; // 页面状态
