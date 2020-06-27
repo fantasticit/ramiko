@@ -18,7 +18,7 @@ export const Cover = ({ isFull = false, link, imgUrl, style: commonStyle }) => {
         [style.wrapper]: true,
         [style.isFull]: isFull
       })}
-      style={transformStyle(style)}
+      style={transformStyle(commonStyle)}
     >
       <a href={link}>
         <img src={imgUrl} alt={imgUrl} />
