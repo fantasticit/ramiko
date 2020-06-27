@@ -18,7 +18,7 @@ export const PropsEditor: React.FC<IProps> = ({ component, onChange }) => {
   const handle = (key, newValue) => {
     const newProps = clone(props);
     newProps[key] = newValue;
-    onChange(newProps);
+    onChange(newProps as Pick<IComponent, 'props'>);
   };
 
   return (
