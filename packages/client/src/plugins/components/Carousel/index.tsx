@@ -40,17 +40,17 @@ Carousel.defaultProps = {
   carousels: [
     {
       url:
-        'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-05-06/wallhaven-6kegww.jpg',
+        'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-27/dGUxUULyLhgGvkwoNsHn.png',
       link: 'http://www.baidu.com'
     },
     {
       url:
-        'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-05-06/wallhaven-6kegww.jpg',
+        'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-27/dGUxUULyLhgGvkwoNsHn.png',
       link: 'http://www.baidu.com'
     },
     {
       url:
-        'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-05-06/wallhaven-6kegww.jpg',
+        'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-27/dGUxUULyLhgGvkwoNsHn.png',
       link: 'http://www.baidu.com'
     }
   ],

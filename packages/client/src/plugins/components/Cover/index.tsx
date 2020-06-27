@@ -30,7 +30,7 @@ export const Cover = ({ isFull = false, link, imgUrl, style: commonStyle }) => {
 Cover.defaultProps = {
   isFull: false,
   imgUrl:
-    'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-04-26/ChMkJ14X3aqIScr1AAWqQrbP6Y0AAwP_gGzCE0ABapa019.jpg',
+    'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-27/dGUxUULyLhgGvkwoNsHn.png',
   link: '',
   style: {
     margin: marginCss,

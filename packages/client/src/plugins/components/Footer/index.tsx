@@ -26,7 +26,7 @@ export const Footer = ({ text, bgcolor, style: commonStyle }) => {
 
 Footer.defaultProps = {
   text: '本页面由Ramiko提供',
-  bgcolor: '#f8f8f8',
+  bgcolor: '#fff',
   style: {
     margin: marginCss,
     padding: paddingCss,
