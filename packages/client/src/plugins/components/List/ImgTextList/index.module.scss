@@ -1,9 +1,15 @@
 .wrapper {
+  width: 100%;
+
   .row {
     display: flex;
     font-size: 0;
     padding-bottom: 8px;
     overflow: hidden;
+
+    &:last-of-type {
+      padding-bottom: 0;
+    }
 
     > .col {
       &:first-of-type {
