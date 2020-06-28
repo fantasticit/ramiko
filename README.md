@@ -4,10 +4,9 @@
 
 最近看了不少关于 h5 页面制作工具。端午闲来无事，决定尝试下一个页面搭建工具。效果如下：
 
-![](https://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-28/QQ20200628-105408-HD.gifhttps://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-28/QQ20200628-105408-HD.gif)
-![](https://user-gold-cdn.xitu.io/2020/6/27/172f446fdeecd539?w=3132&h=1827&f=png&s=1896699)
-![](https://user-gold-cdn.xitu.io/2020/6/27/172f4471a7b15c49?w=1044&h=1701&f=png&s=2089302)
-
+![](https://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-28/QQ20200628-105408-HD.gif)
+![](https://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-27/ramiko-ditor.png)
+![](https://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-27/ramiko-page.png)
 
 gif 录制效果不佳，可以访问以下链接进行体验。
 
@@ -83,18 +82,18 @@ gif 录制效果不佳，可以访问以下链接进行体验。
 import React from 'react';
 
 export const Title = ({ title, style }) => {
-  return <h1>{title}</h1>
+  return <h1>{title}</h1>;
 };
 
 Title.defaultProps = {
-  title: '标题',
+  title: '标题'
 };
 
 Title.schema = {
   title: {
     title: '标题',
     type: 'text'
-  },
+  }
 };
 ```
 
@@ -117,7 +116,7 @@ Title.schema = {
 #### `props`
 
 React 组件的 props，这里使用 `defaultProps` 赋值默认值
-  
+
 #### `schema`
 
 对应 `props` 各个属性的描述，用于编辑器针对进行渲染。进行组件编辑，实际上编辑的是组件的 `props`，`props` 改变组件的渲染结果自然改变。为了对 `props` 进行编辑，需要定义 `props` 的描述语言，通过 `props` 描述来进行属性编辑。这里使用如下的 `schema`。
@@ -178,4 +177,4 @@ Tracking.schema = {
 
 Github：[传送门](https://github.com/fantasticit/ramiko)
 
-在  `client` 和 `server` 分别执行 `yarn dev` 即可。
+在 `client` 和 `server` 分别执行 `yarn dev` 即可。
