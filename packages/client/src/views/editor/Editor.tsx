@@ -51,6 +51,7 @@ export const Editor: React.FC<IProps> = ({
     setComponents(components => {
       let target = clone(components[index]);
       target.props = target.defaultProps;
+      target.id = '' + components.length;
       target.fns = [];
       components.splice(index + 1, 0, target);
       return components;
