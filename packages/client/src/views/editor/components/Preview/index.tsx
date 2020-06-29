@@ -42,8 +42,8 @@ interface IProps {
   onEdit: (index: number) => void;
   onCopy: (index: number) => void;
   onDelete: (index: number) => void;
-  insertBefore: (index: number) => number;
-  insertAfter: (index: number) => number;
+  // insertBefore: (index: number) => number;
+  // insertAfter: (index: number) => number;
 }
 
 const COMPONENT_COVER_WRAPPER_ID_PREFIX = 'ramiko_component_cover_wrapper_';
@@ -57,9 +57,9 @@ export const Preview: React.FC<IProps> = ({
   onSwap,
   onEdit,
   onCopy,
-  onDelete,
-  insertBefore,
-  insertAfter
+  onDelete
+  // insertBefore,
+  // insertAfter
 }) => {
   const isEdit = mode === 'edit';
   const pageStyle = transformPageStyle({ setting });
@@ -148,31 +148,31 @@ export const Preview: React.FC<IProps> = ({
   };
 
   // TODO:插入组件，不应当是直接使用当前组件，考虑占位，然后进行组件选择
-  const handleInsertBefore = () => {
-    if (currentIndex > -1) {
-      const newIndex = insertBefore(currentIndex);
-      setCurrentIndex(newIndex);
-      setTimeout(() => {
-        const el = document.querySelector(
-          `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + newIndex}`
-        );
-        calcToolboxAndHoverBgAttrs(el);
-      }, 0);
-    }
-  };
+  // const handleInsertBefore = () => {
+  //   if (currentIndex > -1) {
+  //     const newIndex = insertBefore(currentIndex);
+  //     setCurrentIndex(newIndex);
+  //     setTimeout(() => {
+  //       const el = document.querySelector(
+  //         `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + newIndex}`
+  //       );
+  //       calcToolboxAndHoverBgAttrs(el);
+  //     }, 0);
+  //   }
+  // };
 
-  const handleInsertAfter = () => {
-    if (currentIndex > -1) {
-      const newIndex = insertAfter(currentIndex);
-      setCurrentIndex(newIndex);
-      setTimeout(() => {
-        const el = document.querySelector(
-          `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + newIndex}`
-        );
-        calcToolboxAndHoverBgAttrs(el);
-      }, 0);
-    }
-  };
+  // const handleInsertAfter = () => {
+  //   if (currentIndex > -1) {
+  //     const newIndex = insertAfter(currentIndex);
+  //     setCurrentIndex(newIndex);
+  //     setTimeout(() => {
+  //       const el = document.querySelector(
+  //         `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + newIndex}`
+  //       );
+  //       calcToolboxAndHoverBgAttrs(el);
+  //     }, 0);
+  //   }
+  // };
 
   const copy = () => {
     if (currentIndex > -1) {
@@ -226,7 +226,7 @@ export const Preview: React.FC<IProps> = ({
                       style.componentWrapper,
                       currentIndex === index && isEdit ? style.isHover : false
                     )}
-                    draggableId={'' + component.id}
+                    draggableId={component.id}
                     index={index}
                   >
                     {(draggableProvided, draggableSnapshot) => (
@@ -257,7 +257,6 @@ export const Preview: React.FC<IProps> = ({
                             }}
                           />
                         )}
-
                         <div className={style.componentInstanceWrapper}>
                           {renderComponent({ component, isEdit })}
                         </div>

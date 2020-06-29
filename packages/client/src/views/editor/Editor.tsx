@@ -42,7 +42,7 @@ export const Editor: React.FC<IProps> = ({
   const addComponent = component => {
     setComponents(components => [
       ...components,
-      { ...component, id: components.length }
+      { ...component, id: '' + components.length }
     ]);
   };
 
@@ -53,46 +53,43 @@ export const Editor: React.FC<IProps> = ({
       target.props = target.defaultProps;
       target.fns = [];
       components.splice(index + 1, 0, target);
-      components.forEach((component, index) => {
-        component.id = index;
-      });
       return components;
     });
     unsafeUpdate();
   };
 
-  // 向指定索引前插入组件
-  const insertBefore = (index): number => {
-    let newIndex;
-    setComponents(components => {
-      let target = clone(components[index]);
-      target.props = {};
-      if (index > 0) {
-        newIndex = index + 1;
-        components.splice(index - 1, 0, target);
-      } else {
-        newIndex = 1;
-        components.unshift(target);
-      }
-      return components;
-    });
-    unsafeUpdate();
-    return newIndex;
-  };
+  // // 向指定索引前插入组件
+  // const insertBefore = (index): number => {
+  //   let newIndex;
+  //   setComponents(components => {
+  //     let target = clone(components[index]);
+  //     target.props = {};
+  //     if (index > 0) {
+  //       newIndex = index + 1;
+  //       components.splice(index - 1, 0, target);
+  //     } else {
+  //       newIndex = 1;
+  //       components.unshift(target);
+  //     }
+  //     return components;
+  //   });
+  //   unsafeUpdate();
+  //   return newIndex;
+  // };
 
-  // 向指定索引后插入组件
-  const insertAfter = (index): number => {
-    let newIndex;
-    setComponents(components => {
-      let target = clone(components[index]);
-      target.props = {};
-      newIndex = index;
-      components.splice(index + 1, 0, target);
-      return components;
-    });
-    unsafeUpdate();
-    return newIndex;
-  };
+  // // 向指定索引后插入组件
+  // const insertAfter = (index): number => {
+  //   let newIndex;
+  //   setComponents(components => {
+  //     let target = clone(components[index]);
+  //     target.props = {};
+  //     newIndex = index;
+  //     components.splice(index + 1, 0, target);
+  //     return components;
+  //   });
+  //   unsafeUpdate();
+  //   return newIndex;
+  // };
 
   // 编辑当前组件 props
   const editCurrentComponentProps = newProps => {
@@ -108,14 +105,10 @@ export const Editor: React.FC<IProps> = ({
   };
 
   // 交换两组件位置（拖拽）
-  const swapComponent = (dragIndex, hoverIndex) => {
+  const swapComponent = (startIndex, endIndex) => {
     setComponents(components => {
-      let a = components[dragIndex];
-      let b = components[hoverIndex];
-      b.id = dragIndex;
-      a.id = hoverIndex;
-      components.splice(dragIndex, 1, b);
-      components.splice(hoverIndex, 1, a);
+      const [removed] = components.splice(startIndex, 1);
+      components.splice(endIndex, 0, removed);
       return components;
     });
     unsafeUpdate();
@@ -234,8 +227,8 @@ export const Editor: React.FC<IProps> = ({
           onMove={moveComponent}
           onCopy={copy}
           onDelete={deleteComponent}
-          insertBefore={insertBefore}
-          insertAfter={insertAfter}
+          // insertBefore={insertBefore}
+          // insertAfter={insertAfter}
           onClosePreview={() => setMode('edit')}
         />
         <div
