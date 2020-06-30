@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from 'classnames';
-import { transformStyle } from 'views/editor';
+import { transformStyle } from '@/views/editor';
 
 import { BaseTitle } from './BaseTitle';
 import style from './index.module.scss';

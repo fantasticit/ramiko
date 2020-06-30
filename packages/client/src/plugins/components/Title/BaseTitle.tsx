@@ -7,7 +7,7 @@ import {
   fontCss,
   fontCssSchema,
   transformStyle
-} from 'views/editor';
+} from '@/views/editor';
 
 export const BaseTitle = ({ title, style }) => {
   return (

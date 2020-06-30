@@ -1,6 +1,5 @@
+import { plugins } from '@/views/editor';
 import { Tracking } from './functions/Tracking';
-
-import { plugins } from 'views/editor';
 
 plugins.functions.register('Tracking', Tracking);
 

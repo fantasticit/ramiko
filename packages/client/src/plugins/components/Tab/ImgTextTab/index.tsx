@@ -8,7 +8,7 @@ import {
   fontCss,
   fontCssSchema,
   transformStyle
-} from 'views/editor';
+} from '@/views/editor';
 import style from './index.module.scss';
 
 export const ImgTextTab = ({

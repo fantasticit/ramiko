@@ -1,4 +1,4 @@
-import { Store } from './store';
+import { plugins } from '@/views/editor';
 import { Carousel } from './components/Carousel';
 import { Cover } from './components/Cover';
 import { Button } from './components/Button';
@@ -7,8 +7,6 @@ import { BaseTitle, LeftBorderTitle } from './components/Title';
 import { ImgTextTab } from './components/Tab';
 import { Footer } from './components/Footer';
 import { ImgTextList } from './components/List';
-
-import { plugins } from 'views/editor';
 
 plugins.components.register('BaseTitle', BaseTitle);
 plugins.components.register('LeftBorderTitle', LeftBorderTitle);

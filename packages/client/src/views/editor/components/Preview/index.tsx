@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
-import debounce from 'lodash/debounce';
 import cls from 'classnames';
+import debounce from 'lodash/debounce';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Divider } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
@@ -42,8 +42,6 @@ interface IProps {
   onEdit: (index: number) => void;
   onCopy: (index: number) => void;
   onDelete: (index: number) => void;
-  // insertBefore: (index: number) => number;
-  // insertAfter: (index: number) => number;
 }
 
 const COMPONENT_COVER_WRAPPER_ID_PREFIX = 'ramiko_component_cover_wrapper_';
@@ -58,8 +56,6 @@ export const Preview: React.FC<IProps> = ({
   onEdit,
   onCopy,
   onDelete
-  // insertBefore,
-  // insertAfter
 }) => {
   const isEdit = mode === 'edit';
   const pageStyle = transformPageStyle({ setting });
@@ -146,33 +142,6 @@ export const Preview: React.FC<IProps> = ({
       calcToolboxAndHoverBgAttrs(el);
     }, 0);
   };
-
-  // TODO:插入组件，不应当是直接使用当前组件，考虑占位，然后进行组件选择
-  // const handleInsertBefore = () => {
-  //   if (currentIndex > -1) {
-  //     const newIndex = insertBefore(currentIndex);
-  //     setCurrentIndex(newIndex);
-  //     setTimeout(() => {
-  //       const el = document.querySelector(
-  //         `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + newIndex}`
-  //       );
-  //       calcToolboxAndHoverBgAttrs(el);
-  //     }, 0);
-  //   }
-  // };
-
-  // const handleInsertAfter = () => {
-  //   if (currentIndex > -1) {
-  //     const newIndex = insertAfter(currentIndex);
-  //     setCurrentIndex(newIndex);
-  //     setTimeout(() => {
-  //       const el = document.querySelector(
-  //         `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + newIndex}`
-  //       );
-  //       calcToolboxAndHoverBgAttrs(el);
-  //     }, 0);
-  //   }
-  // };
 
   const copy = () => {
     if (currentIndex > -1) {

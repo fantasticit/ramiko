@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import clone from 'lodash/cloneDeep';
-import { Button, Collapse, Dropdown, Menu, Tooltip } from 'antd';
+import { Button, Collapse, Dropdown, Menu } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { IComponentData, IComponent } from '../../../type';
 import { plugins } from '../../../plugins';
