@@ -8,10 +8,10 @@ import {
   fontCss,
   fontCssSchema,
   transformStyle
-} from 'views/editor';
+} from '@/views/editor';
 import style from './index.module.scss';
 
-export const Cover = ({ link, imgUrl, style: commonStyle }) => {
+export const Cover = ({ link, imgUrl, text, style: commonStyle }) => {
   return (
     <div
       className={cls({
@@ -22,6 +22,7 @@ export const Cover = ({ link, imgUrl, style: commonStyle }) => {
       <a href={link}>
         <img src={imgUrl} alt={imgUrl} />
       </a>
+      {text ? <p>{text}</p> : null}
     </div>
   );
 };
@@ -31,6 +32,7 @@ Cover.defaultProps = {
   imgUrl:
     'https://wipi.oss-cn-shanghai.aliyuncs.com/2020-06-27/dGUxUULyLhgGvkwoNsHn.png',
   link: '',
+  text: '',
   style: {
     margin: marginCss,
     padding: paddingCss,
@@ -47,6 +49,11 @@ Cover.defaultProps = {
   },
   link: {
     title: '跳转链接',
+    type: 'text'
+  },
+  text: {
+    title: '配文',
+    desc: '不填不显示',
     type: 'text'
   },
   style: {

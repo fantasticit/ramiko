@@ -7,21 +7,37 @@ import {
   fontCss,
   fontCssSchema,
   transformStyle
-} from 'views/editor';
+} from '@/views/editor';
 import chunk from 'lodash/chunk';
 import style from './index.module.scss';
 
-export const ImgTextList = ({ items = [], style: commonStyle }) => {
-  const groups = chunk(items, 2);
+export const ImgTextList = ({
+  items = [],
+  spans,
+  marginTop = 10,
+  marginLeft = 10,
+  style: commonStyle
+}) => {
+  const groups = chunk(items, spans);
 
   return (
     <div className={style.wrapper} style={transformStyle(commonStyle)}>
       {groups.map((group, i) => {
         return (
-          <div className={style.row} key={i}>
+          <div
+            className={style.row}
+            key={i}
+            style={{ marginTop: i > 0 ? marginTop : 0 }}
+          >
             {group.map((item, j) => {
               return (
-                <div className={style.col} key={i + '_' + j}>
+                <div
+                  className={style.col}
+                  key={i + '_' + j}
+                  style={{
+                    marginLeft: j > 0 ? marginLeft : 0
+                  }}
+                >
                   <a href={item.link}>
                     <div className={style.mask}></div>
                     <img src={item.cover} alt={item.title} />
@@ -71,6 +87,9 @@ ImgTextList.defaultProps = {
       link: '/'
     }
   ],
+  spans: 2,
+  marginTop: 10,
+  marginLeft: 10,
   style: {
     margin: marginCss,
     padding: paddingCss,
@@ -102,6 +121,18 @@ ImgTextList.defaultProps = {
         type: 'text'
       }
     }
+  },
+  spans: {
+    title: '每行数量',
+    type: 'number'
+  },
+  marginTop: {
+    title: '上边距',
+    type: 'number'
+  },
+  marginLeft: {
+    title: '左边距',
+    type: 'number'
   },
   style: {
     type: 'children',

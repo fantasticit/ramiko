@@ -4,27 +4,7 @@
   .row {
     display: flex;
     font-size: 0;
-    padding-bottom: 8px;
     overflow: hidden;
-
-    &:last-of-type {
-      padding-bottom: 0;
-    }
-
-    > .col {
-      &:first-of-type {
-        padding-right: 4px;
-      }
-
-      &:last-of-type {
-        padding-left: 4px;
-      }
-
-      &:only-of-type {
-        padding-left: 0;
-        padding-right: 0;
-      }
-    }
   }
 
   .col {
