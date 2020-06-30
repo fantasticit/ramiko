@@ -11,23 +11,17 @@ export class Page {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ default: null })
-  cover: string; // 页面封面
-
-  @Column()
-  name: string; // 页面名
-
   @Column({ default: null, type: 'json' })
   setting: object; // 页面设置
 
   @Column({ default: null, type: 'json' })
-  components: object; // 页面封面
+  components: object; // 页面组件
 
   @Column('simple-enum', { enum: ['draft', 'publish'] })
   status: string; // 页面状态
 
   @Column({ type: 'int', default: 0 })
-  views: number; // 阅读量
+  views: number; // 访问量
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   publishAt: Date; // 发布日期

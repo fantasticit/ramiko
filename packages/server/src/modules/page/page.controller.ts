@@ -27,7 +27,7 @@ export class PageController {
   }
 
   /**
-   * 获取所有文章
+   * 获取所有页面
    */
   @Get()
   findAll(@Query() queryParams) {
@@ -54,7 +54,7 @@ export class PageController {
   }
 
   /**
-   * 文章访问量 +1
+   * 页面访问量 +1
    */
   @Post(':id/views')
   @HttpCode(HttpStatus.OK)
@@ -63,7 +63,7 @@ export class PageController {
   }
 
   /**
-   * 删除文章
+   * 删除页面
    * @param id
    */
   @Delete(':id')

@@ -16,11 +16,6 @@ export class PageService {
    * @param page
    */
   async create(page: Partial<Page>): Promise<Page> {
-    const { name } = page;
-    const exist = await this.pageRepository.findOne({ where: { name } });
-    if (exist) {
-      throw new HttpException('页面已存在', HttpStatus.BAD_REQUEST);
-    }
     const newPage = await this.pageRepository.create({
       ...page
     });
@@ -62,9 +57,7 @@ export class PageService {
     const query = this.pageRepository
       .createQueryBuilder('page')
       .where('page.id=:id')
-      .orWhere('page.name=:name')
-      .setParameter('id', id)
-      .setParameter('name', id);
+      .setParameter('id', id);
 
     return query.getOne();
   }
@@ -90,7 +83,6 @@ export class PageService {
   async updateById(id, page: Partial<Page>): Promise<Page> {
     const old = await this.pageRepository.findOne(id);
     let { status } = page;
-
     const newPage = {
       ...page,
       publishAt:
@@ -98,7 +90,6 @@ export class PageService {
           ? dayjs().format('YYYY-MM-DD HH:mm:ss')
           : old.publishAt
     };
-
     const updatedPage = await this.pageRepository.merge(old, newPage);
     return this.pageRepository.save(updatedPage);
   }
