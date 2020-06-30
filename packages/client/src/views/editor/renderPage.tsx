@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { renderComponent } from './components/Preview/renderComponent';
 import { IPageSetting } from './type';
 
@@ -31,12 +32,15 @@ export const renderPageComponents = ({ components = [] }) => {
 };
 
 export const renderPage = ({ setting, components }) => {
-  const { js = null } = setting;
+  const { name = '', js = null } = setting;
 
   return (
     <div style={transformPageStyle({ setting })}>
+      <Head>
+        <title>{name}</title>
+      </Head>
       {renderPageComponents({ components })}
-      {js && /^http/.test(js) ? (
+      {js && /^http|^\/\//.test(js) ? (
         <script src={js} />
       ) : (
         <script dangerouslySetInnerHTML={{ __html: js }} />

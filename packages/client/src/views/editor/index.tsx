@@ -12,14 +12,18 @@ import {
 } from './css';
 
 export {
-  renderPage,
+  // 插件
   plugins,
+  // 编辑器
   Editor,
+  // css
   paddingCss,
   paddingCssSchema,
   marginCss,
   marginCssSchema,
   fontCss,
   fontCssSchema,
-  transformStyle
+  transformStyle,
+  // 页面渲染
+  renderPage
 };

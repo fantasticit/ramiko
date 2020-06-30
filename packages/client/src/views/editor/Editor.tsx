@@ -59,39 +59,6 @@ export const Editor: React.FC<IProps> = ({
     unsafeUpdate();
   };
 
-  // // 向指定索引前插入组件
-  // const insertBefore = (index): number => {
-  //   let newIndex;
-  //   setComponents(components => {
-  //     let target = clone(components[index]);
-  //     target.props = {};
-  //     if (index > 0) {
-  //       newIndex = index + 1;
-  //       components.splice(index - 1, 0, target);
-  //     } else {
-  //       newIndex = 1;
-  //       components.unshift(target);
-  //     }
-  //     return components;
-  //   });
-  //   unsafeUpdate();
-  //   return newIndex;
-  // };
-
-  // // 向指定索引后插入组件
-  // const insertAfter = (index): number => {
-  //   let newIndex;
-  //   setComponents(components => {
-  //     let target = clone(components[index]);
-  //     target.props = {};
-  //     newIndex = index;
-  //     components.splice(index + 1, 0, target);
-  //     return components;
-  //   });
-  //   unsafeUpdate();
-  //   return newIndex;
-  // };
-
   // 编辑当前组件 props
   const editCurrentComponentProps = newProps => {
     setComponents(components => {
@@ -171,7 +138,6 @@ export const Editor: React.FC<IProps> = ({
       };
     });
     PageProvider.addPage({
-      name: Math.random(),
       setting: pageSetting,
       components: data
     }).then((res: any) => {
@@ -228,8 +194,6 @@ export const Editor: React.FC<IProps> = ({
           onMove={moveComponent}
           onCopy={copy}
           onDelete={deleteComponent}
-          // insertBefore={insertBefore}
-          // insertAfter={insertAfter}
           onClosePreview={() => setMode('edit')}
         />
         <div
