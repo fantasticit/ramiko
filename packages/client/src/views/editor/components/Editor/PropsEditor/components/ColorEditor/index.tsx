@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Popover } from 'antd';
+import { Popover, Button } from 'antd';
 import { SketchPicker } from 'react-color';
 import style from './index.module.scss';
 
@@ -22,14 +22,21 @@ export const ColorEditor = ({ schema, value, onChange }) => {
                 e.stopPropagation();
                 e.preventDefault();
               }}
+              style={{ width: 300, textAlign: 'right' }}
             >
               <SketchPicker
                 color={value}
                 onChangeComplete={color => {
                   onChange(color.hex);
-                  setVisible(false);
                 }}
               />
+              <Button
+                size="small"
+                style={{ margin: '0 10px 10px' }}
+                onClick={() => setVisible(false)}
+              >
+                关闭
+              </Button>
             </div>
           }
           title={null}
