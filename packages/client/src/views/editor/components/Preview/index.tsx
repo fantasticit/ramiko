@@ -1,9 +1,8 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import cls from 'classnames';
-import debounce from 'lodash/debounce';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Divider } from 'antd';
+import { Divider, Tooltip } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
   ArrowUpOutlined,
   ArrowDownOutlined,
@@ -17,7 +16,7 @@ import style from './index.module.scss';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  border: isDragging ? '1px dashed #000' : 'none',
+  border: 'none',
   background: isDragging ? '#fff' : 'transparent',
   ...draggableStyle
 });
@@ -61,45 +60,25 @@ export const Preview: React.FC<IProps> = ({
   const pageStyle = transformPageStyle({ setting });
   delete pageStyle.minHeight;
   delete pageStyle.height;
-  const toolboxRef = useRef(null);
-  const hoverBgRef = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
-  const calcToolboxAndHoverBgAttrs = useCallback(el => {
-    if (!el) {
+  useEffect(() => {
+    if (!ref.current) {
       return;
     }
-    // FIXME: 遇到图片时可能需要等待图片加载完成，才可计算出正确高度
-    const handle = () => {
-      const { y, height } = el.getBoundingClientRect();
-      toolboxRef.current.style.top = `${y}px`;
-      hoverBgRef.current.style.top = y - 60 + 'px';
-      hoverBgRef.current.style.height = height + 'px';
+
+    const el = ref.current;
+    const parent = el.parentNode as HTMLDivElement;
+    const timer = setTimeout(() => {
+      parent.scrollTo(0, el.scrollHeight);
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
     };
-
-    const img = (el.parentNode && el.parentNode.querySelector('img')) || null;
-
-    if (img) {
-      const imgIns = new Image();
-      imgIns.onload = () => handle();
-      imgIns.onerror = () => handle();
-      imgIns.src = img.src;
-    } else {
-      handle();
-    }
-  }, []);
-
-  const handleMove = debounce(
-    e => {
-      const el = e.target;
-      if (el && toolboxRef.current && hoverBgRef.current) {
-        calcToolboxAndHoverBgAttrs(el);
-      }
-    },
-    50,
-    { leading: true, trailing: false }
-  );
+  }, [components.length]);
 
   const moveComponent = direction => {
     let newComponent;
@@ -123,24 +102,11 @@ export const Preview: React.FC<IProps> = ({
 
     setCurrent(newComponent);
     setCurrentIndex(newIndex);
-
-    setTimeout(() => {
-      const el = document.querySelector(
-        `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + newIndex}`
-      );
-      calcToolboxAndHoverBgAttrs(el);
-    }, 0);
   };
 
   const handleSwap = (dragIndex, hoverIndex) => {
     onSwap(dragIndex, hoverIndex);
     setCurrentIndex(hoverIndex);
-    setTimeout(() => {
-      const el = document.querySelector(
-        `#${COMPONENT_COVER_WRAPPER_ID_PREFIX + hoverIndex}`
-      );
-      calcToolboxAndHoverBgAttrs(el);
-    }, 0);
   };
 
   const copy = () => {
@@ -178,6 +144,7 @@ export const Preview: React.FC<IProps> = ({
         <CloseOutlined />
       </div>
       <div
+        ref={ref}
         className={cls(style.contentWrapper, isEdit ? false : style.isPreview)}
         style={pageStyle}
       >
@@ -191,16 +158,11 @@ export const Preview: React.FC<IProps> = ({
                 {components.map((component, index) => (
                   <Draggable
                     key={component.id}
-                    className={cls(
-                      style.componentWrapper,
-                      currentIndex === index && isEdit ? style.isHover : false
-                    )}
                     draggableId={component.id}
                     index={index}
                   >
                     {(draggableProvided, draggableSnapshot) => (
                       <div
-                        className={style.componentWrapper}
                         ref={draggableProvided.innerRef}
                         {...draggableProvided.draggableProps}
                         {...draggableProvided.dragHandleProps}
@@ -209,25 +171,58 @@ export const Preview: React.FC<IProps> = ({
                           draggableProvided.draggableProps.style
                         )}
                       >
-                        {isEdit && (
-                          <div
-                            id={COMPONENT_COVER_WRAPPER_ID_PREFIX + index}
-                            className={style.componentCoverWrapper}
-                            onMouseMove={e => {
-                              e.persist();
-                              setCurrent(component);
-                              setCurrentIndex(index);
-                              handleMove(e);
-                            }}
-                            onClick={() => {
-                              setCurrent(component);
-                              setCurrentIndex(index);
-                              onEdit(index);
-                            }}
-                          />
-                        )}
-                        <div className={style.componentInstanceWrapper}>
-                          {renderComponent({ component, isEdit })}
+                        <div
+                          className={cls(
+                            style.componentWrapper,
+                            isEdit ? style.isEdit : false,
+                            currentIndex === index ? style.isActive : false
+                          )}
+                        >
+                          {isEdit && (
+                            <>
+                              <div
+                                id={COMPONENT_COVER_WRAPPER_ID_PREFIX + index}
+                                className={style.componentCoverWrapper}
+                                onClick={() => {
+                                  setCurrent(component);
+                                  setCurrentIndex(index);
+                                  onEdit(index);
+                                }}
+                              />
+                              <div className={style.toolboxWrapper}>
+                                <ul>
+                                  <li>
+                                    <Tooltip title="上移" placement="right">
+                                      <ArrowUpOutlined
+                                        onClick={() => moveComponent('up')}
+                                      />
+                                    </Tooltip>
+                                    <Divider className={style.dividerWrapper} />
+                                    <Tooltip title="下移" placement="right">
+                                      <ArrowDownOutlined
+                                        onClick={() => moveComponent('down')}
+                                      />
+                                    </Tooltip>
+                                  </li>
+                                  <Tooltip title="复制" placement="right">
+                                    <li>
+                                      <CopyOutlined onClick={copy} />
+                                    </li>
+                                  </Tooltip>
+                                  <Tooltip title="删除" placement="right">
+                                    <li>
+                                      <DeleteOutlined
+                                        onClick={deleteComponent}
+                                      />
+                                    </li>
+                                  </Tooltip>
+                                </ul>
+                              </div>
+                            </>
+                          )}
+                          <div className={style.componentInstanceWrapper}>
+                            {renderComponent({ component, isEdit })}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -238,32 +233,6 @@ export const Preview: React.FC<IProps> = ({
             )}
           </Droppable>
         </DragDropContext>
-      </div>
-      <div
-        className={style.hoverBgWrapper}
-        ref={hoverBgRef}
-        style={{ visibility: isEdit ? 'visible' : 'hidden' }}
-      ></div>
-      <div
-        className={style.toolboxWrapper}
-        ref={toolboxRef}
-        style={{
-          visibility: currentIndex > -1 && isEdit ? 'visible' : 'hidden'
-        }}
-      >
-        <ul>
-          <li>
-            <ArrowUpOutlined onClick={() => moveComponent('up')} />
-            <Divider className={style.dividerWrapper} />
-            <ArrowDownOutlined onClick={() => moveComponent('down')} />
-          </li>
-          <li>
-            <CopyOutlined onClick={copy} />
-          </li>
-          <li>
-            <DeleteOutlined onClick={deleteComponent} />
-          </li>
-        </ul>
       </div>
     </div>
   );
