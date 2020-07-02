@@ -1,4 +1,4 @@
-# nextjs + nest.js 构建页面可视化编辑器 -- Ramiko
+# next.js + nest.js 构建页面可视化编辑器 -- Ramiko
 
 ## 前言
 
