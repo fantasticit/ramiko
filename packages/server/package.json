@@ -39,7 +39,7 @@
     "helmet": "^3.21.2",
     "highlight.js": "^9.18.0",
     "log4js": "^6.1.0",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "mysql": "^2.18.0",
     "node-summary": "^1.2.0",
     "nodemailer": "^6.4.2",
