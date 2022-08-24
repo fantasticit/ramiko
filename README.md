@@ -11,8 +11,7 @@
 gif 录制效果不佳，可以访问以下链接进行体验。
 
 - Github：[传送门](https://github.com/fantasticit/ramiko)
-- 编辑器：[传送门](https://blog.wipi.tech/ramiko/editor)
-- demo：[传送门](https://blog.wipi.tech/ramiko/page/85333d78-ed24-4adf-8d09-b185fddd73fc)
+- 编辑器：[传送门](http://124.221.147.83:4002/editor)
 
 ## 技术栈
 
