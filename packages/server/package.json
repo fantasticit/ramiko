@@ -22,7 +22,7 @@
   "dependencies": {
     "@elastic/elasticsearch": "^7.5.1",
     "@nestjs/common": "^6.7.2",
-    "@nestjs/core": "^6.7.2",
+    "@nestjs/core": "^9.0.5",
     "@nestjs/jwt": "^6.1.1",
     "@nestjs/microservices": "^6.10.14",
     "@nestjs/passport": "^6.1.1",
